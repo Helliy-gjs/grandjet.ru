@@ -1,0 +1,82 @@
+html, body {
+	height: 100%;
+	padding: 20px;
+	margin: 0;
+}
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+form {
+	height: 100%;
+}
+
+table {
+	border: 0;
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+	
+td {
+	padding: 5px;
+	margin-top: 10px;
+}
+
+td.center {
+	width: 50%;
+}
+.center > form > a {
+	width: 50%;
+	margin-top: 10px;
+}
+
+label {
+	font-size: 11px;
+	color: #003070;
+}
+
+input {
+	font-weight: bold;
+	text-align: center;
+	padding: 2px;
+}
+
+input.inp {
+	width: 250px;	
+}
+
+div.wrong {
+	padding: 3px 3px 3px 15px;
+    border-left: #FF0000 solid 2px;
+    background-color: #ecdbdb;
+    text-align: left;
+    font-size: 12px;
+    width: 400px;	
+    margin: 0 auto;
+}
+
+a {
+	font-size: 14px; 
+	color: #154e9a;	
+}
+a:hover{
+	color: #154f9c;
+	text-decoration: none;
+}
+
+img {
+	border: solid 1px #154e9a;	
+	cursor: pointer;
+}
+div .info {
+  display: block;
+  height: auto;
+  position: absolute;
+  top: 0px;
+  left: 200px;
+     }

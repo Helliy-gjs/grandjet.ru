@@ -1,0 +1,27 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+ 
+<url>
+<loc>http://deltar.ru/auth/</loc>
+<lastmod>2019-04-25T09:14:48+00:00</lastmod>
+</url>
+<url>
+<loc>http://deltar.ru/gra.php</loc>
+<lastmod>2019-04-25T09:14:48+00:00</lastmod>
+</url>
+<url>
+<loc>http://deltar.ru/?guest</loc>
+<lastmod>2019-04-25T09:14:48+00:00</lastmod>
+</url>
+<url>
+<loc>http://deltar.ru/registration/</loc>
+<lastmod>2019-04-25T09:14:48+00:00</lastmod>
+</url>
+<url>
+<loc>http://deltar.ru/recovery/</loc>
+<lastmod>2019-04-25T09:14:48+00:00</lastmod>
+</url>
+<url>
+<loc>http://deltar.ru/settings/</loc>
+<lastmod>2019-04-25T09:14:48+00:00</lastmod>
+</url>
+</urlset>

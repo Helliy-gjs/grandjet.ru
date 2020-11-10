@@ -1,0 +1,9 @@
+<?php
+//print_r($arrmain);
+//print_r($arrmain['link']);
+show::headersh($arrmain,$Pth,'butt',$clas,0,4);
+//print_r($arrmain['imgs']);
+show::sectionsh('butt',$arrmain,$Pth);
+//print_r($clas);	
+//$a_img=show::cleanmasspic($clas,$arrmain,'butt','imgt');
+//print_r($a_img);

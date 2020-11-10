@@ -1,0 +1,505 @@
+@font-face {
+  font-family: 'realway-example';
+  src: url("../fonts/RalewayRegular.woff") format "woff"; }
+
+@font-face {
+  font-family: 'realway-example';
+  src: url("../fonts/RalewayBold.woff") format "woff";
+  font-weight: bold; }
+
+@font-face {
+  font-family: 'realway-example';
+  src: url("../fonts/RalewayExtraBold.woff") format "woff"; }
+
+@font-face {
+  font-family: 'intro-example';
+  src: url("../fonts/Introregular.woff") format "woff"; }
+
+.cleaner {
+  clear: both; }
+
+.h10 {
+  height: 10px; }
+
+.h20 {
+  height: 20px; }
+
+.h30 {
+  height: 30px; }
+
+.h40 {
+  height: 40px; }
+
+.h50 {
+  height: 50px; }
+
+.hr {
+  background: url(../images/accordion/templatemo_divider.png) bottom center no-repeat;
+    background-margin-bottom: 40px; }
+
+.float_l {
+  float: left; }
+
+.float_r {
+  float: right; }
+
+.image_frame {
+  display: inline-block;
+  position: relative;
+  margin: 3px 0 10px 0;
+  background: #326432;
+  padding: 6px;
+  border: 1px solid #e2ded1; }
+
+.image_fl {
+  float: left;
+  margin: 3px 20px 12px 0; }
+
+.image_fr {
+  float: right;
+  margin: 3px 0 12px 20px; }
+
+.templatemo_list {
+  margin: 10px 0 10px 0;
+  padding: 0;
+  list-style: none; }
+  .templatemo_list li {
+    color: #7c7970;
+    margin: 0 0 10px 0;
+    padding: 0 5px 0 15px;
+    background: url(../images/accordion/templatemo_list.png) no-repeat scroll 0 5px; }
+    .templatemo_list li.flow {
+      display: block;
+      float: left;
+      width: 220px;
+      margin-right: 40px; }
+    .templatemo_list li.nomr {
+      margin-right: 0; }
+    .templatemo_list li a {
+      color: #7c7970;
+      font-weight: normal; }
+      .templatemo_list li a:hover {
+        color: #7c7970; }
+
+#templatemo_top_wrapper {
+  width: 100%;
+  height: 75px;
+  margin-bottom: 20px;
+  background: url(../images/accordion/templatemo_top.png) repeat-x; }
+
+#templatemo_top {
+  width: 880px;
+  padding: 10px 48px;
+  margin: 0 auto; }
+
+#templatemo_main_top {
+  width: 976px;
+  height: 78px;
+  margin: 0 auto;
+  background: url(../images/accordion/templatemo_main_top.png) no-repeat; }
+
+#templatemo_main_wrapper {
+  width: 980px;
+  padding: 0 28px;
+  margin: 0 auto;
+  background: url(../images/accordion/templatemo_main_middle.png) repeat-y; }
+
+#templatemo_main {
+  padding: 20px 40px 20px; }
+
+#templatemo_footer {
+  width: 800px;
+  padding: 60px 28px 10px;
+  margin: 0 auto;
+  background: url(../images/accordion/templatemo_main_bottom.png) no-repeat top center; }
+
+#site_title {
+  float: left; }
+  #site_title h1 {
+    margin: 0;
+    padding: 0; }
+    #site_title h1 a {
+      display: block;
+      font-size: 16px -4px;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      width: 229px;
+      height: 59px;
+      color: #293a43;
+      text-indent: -10000px;
+      background: url(../images/accordion/templatemo_logo.png) no-repeat center left; }
+
+#templatemo_menu {
+  float: right; }
+
+#templatemo_slider_wrapper {
+  width: 73px;
+  padding: 1px 1px 26px;
+  margin: 0 0; }
+
+.col {
+  float: left;
+  margin-right: 40px; }
+
+.col_2 {
+  width: 380px; }
+
+.col_3 {
+  width: 240px; }
+
+.col_32 {
+  width: 520px; }
+
+.no_margin_righ {
+  margin-right: 0; }
+
+.rp_pp {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #414141; }
+  .rp_pp img {
+    float: left;
+    margin-right: 15px;
+    border: 3px solid black; }
+  .rp_pp p {
+    font-size: 10px; }
+
+.hp_post h4 {
+  margin-bottom: 5px; }
+
+.hp_post img {
+  float: left;
+  margin: 3px 10px 30px 0; }
+
+.testimonial {
+  padding: 0 0 0 70px;
+  display: block;
+  background: url(../images/accordion/speech_bubble_grey.png) left top no-repeat; }
+
+.gallery_box {
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  background: url(../images/accordion/templatemo_divider.png) bottom no-repeat; }
+  .gallery_box img {
+    background: #326432;
+    padding: 6px;
+    border: 1px solid #414141; }
+  .gallery_box h5 {
+    font-weight: 700;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    margin-bottom: 5px; }
+  .gallery_box a.link {
+    font-size: 11px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 15px; }
+
+.post {
+  clear: both;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  background: url(../images/accordion/templatemo_divider.png) bottom no-repeat; }
+
+.no_pmb {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  background: none; }
+
+.post img {
+  margin: 3px 40px 0 0; }
+
+.post h2 {
+  margin-bottom: 10px; }
+
+.post .meta {
+  font-size: 10px;
+  margin-bottom: 20px; }
+  .post .meta a, .post .meta strong {
+    color: #5c6f7c;
+    font-weight: 700; }
+
+#comment_section {
+  clear: both;
+  margin-bottom: 60px;
+  width: 880px -120px; }
+
+.first_level {
+  margin: 0;
+  padding: 0; }
+
+.comments {
+  list-style: none; }
+  .comments li {
+    margin-bottom: 10px;
+    list-style: none; }
+    .comments li .commentbox1 {
+      border-top: 1px solid #000;
+      background: #3c3c3c; }
+    .comments li .commentbox2 {
+      border-top: 1px solid #000;
+      background: #282828; }
+    .comments li .comment_box {
+      clear: both;
+      width: 100%;
+      padding: 15px; }
+
+.comment_box .gravatar {
+  float: left;
+  width: 75px;
+  margin-right: 30px; }
+  .comment_box .gravatar img {
+    width: 75px;
+    height: 75px; }
+
+.comment_box .comment_text p {
+  margin: 0; }
+
+.comment_text .comment_author {
+  font-size: 16px -2px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px; }
+
+.comment_text .date, .comment_text .time {
+  font-size: 16px -4px;
+  font-weight: normal;
+  color: black;
+  padding-left: 10px; }
+
+.comment_text .reply a {
+  display: block;
+  clear: both;
+  float: right;
+  color: #333333;
+  font-weight: 700; }
+
+#comment_form {
+  clear: both; }
+  #comment_form h3 {
+    font-size: 20px;
+    border-bottom: 1px dotted #666;
+    margin-bottom: 15px;
+    padding-bottom: 10px; }
+  #comment_form textarea {
+    color: black;
+    background: white;
+    border: 1px solid #5c6f7c;
+    height: 150px;
+    padding: 5px;
+    width: 400px -20px;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 16px -4px;
+    margin-top: 5px; }
+  #comment_form .form_row {
+    width: 200px;
+    margin-bottom: 15px; }
+  #comment_form form input {
+    color: black;
+    padding: 5px;
+    width: 250px;
+    background: #d9d9d9;
+    border: 1px solid #9b9b9b;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-size: 16px -4px;
+    margin-top: 5px; }
+  #comment_form .submit_btn {
+    display: block;
+    width: 70px;
+    height: 30px;
+    padding: 5px 8px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #5c6f7c;
+    border: 1px solid black;
+    color: #141414;
+    font-size: 16px -5px;
+    cursor: pointer; }
+
+#contact_form {
+  padding: 0;
+  width: 400px -20px;
+  margin-bottom: 40px; }
+  #contact_form form {
+    margin: 0px;
+    padding: 0px; }
+    #contact_form form .input_field {
+      width: 270px;
+      padding: 5px;
+      color: #141414;
+      background: #5c6f7c;
+      border: 1px solid black;
+      font-family: Tahoma, Geneva, sans-serif;
+      font-size: 16px -4px;
+      margin-top: 5px; }
+    #contact_form form label {
+      display: block;
+      width: 100px;
+      margin-right: 12px;
+      font-size: 16px -3px; }
+    #contact_form form textarea {
+      width: 368px;
+      height: 200px;
+      padding: 5px;
+      color: #141414;
+      background: #5c6f7c;
+      border: 1px solid black;
+      font-family: Tahoma, Geneva, sans-serif;
+      font-size: 16px -4px;
+      margin-top: 5px; }
+    #contact_form form .submit_btn {
+      margin: 10px 0px;
+      padding: 5px 14px;
+      font-weight: bold;
+      background-color: #e0dbcd;
+      border: 1px solid #f7f5e3;
+      color: #141414;
+      font-family: Tahoma, Geneva, sans-serif;
+      font-size: 16px -4px;
+      margin-top: 5px; }
+
+.copyright {
+  padding: 10px 0; }
+  .copyright a {
+    color: #292929; }
+
+.pagging {
+  margin: 0 0 20px;
+  padding: 0; }
+  .pagging ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; }
+    .pagging ul li {
+      margin: 0;
+      padding: 0;
+      display: inline; }
+      .pagging ul li a {
+        float: left;
+        display: block;
+        color: #333;
+        text-decoration: none;
+        margin-right: 5px;
+        padding: 5px 10px;
+        background-color: #f6f6f6;
+        border: 1px solid #000; }
+        .pagging ul li a:hover {
+          background: #999999;
+          border: 1px solid #141414;
+          color: white; }
+
+.slider {
+  list-style: none;
+  position: relative;
+  width: 880px;
+  height: 440px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0; }
+  .slider li {
+    /* these are required, but the values are up to you (must be pixel)*/
+    width: 198px;
+    height: 440px;
+    /*do not change these*/
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    /* if you need padding, do so with an inner div (or implement your own box-model hack)*/ }
+  .slider.horizontal li {
+    /* This is optional and will be disregarded by the script.  However, it should be provided for non-JS enabled browsers.*/
+    margin-right: 5px;
+    /*Set to same as spacing option.*/
+    float: left; }
+  .slider.vertical li {
+    /* This is optional and will be disregarded by the script.  However, it should be provided for non-JS enabled browsers.*/
+    margin-bottom: 5px;
+    /*Set to same as spacing option.*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal1 #slide_1 {
+    margin-right: none; }
+  .slider.vertical1 #slide_1 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal2 #slide_2 {
+    margin-right: none; }
+  .slider.vertical2 #slide_2 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal3 #slide_3 {
+    margin-right: none; }
+  .slider.vertical3 #slide_3 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal4 #slide_4 {
+    margin-right: none; }
+  .slider.vertical4 #slide_4 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal5 #slide_5 {
+    margin-right: none; }
+  .slider.vertical5 #slide_5 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal6 #slide_6 {
+    margin-right: none; }
+  .slider.vertical6 #slide_6 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal7 #slide_7 {
+    margin-right: none; }
+  .slider.vertical7 #slide_7 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal8 #slide_8 {
+    margin-right: none; }
+  .slider.vertical8 #slide_8 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }
+
+.slider {
+  /*&.vertical #slide_5
+		    margin-bottom: none */
+  /* cancel margin on last kiwck (if you set a margin above)*/ }
+  .slider.horizontal9 #slide_9 {
+    margin-right: none; }
+  .slider.vertical9 #slide_9 {
+    margin-bottom: none;
+    /* cancel margin on last kiwck (if you set a margin above)*/ }

@@ -1,0 +1,46 @@
+# robots.txt file for grandjetstudio
+
+User-agent: Mediapartners-Google*
+Disallow:
+
+User-agent: Yandex
+Disallow:
+
+User-agent: *
+Disallow: /classes
+Disallow: /ajax
+Disallow: /auth
+Disallow: /registration
+Disallow: /recovery
+Disallow: /images
+Disallow: /app
+Disallow: /css
+Disallow: /js
+Disallow: /book
+Disallow: /detail
+Disallow: /img
+Disallow: /Megamenu
+Disallow: /market_dist
+Disallow: /scripts
+Disallow: /JavaScripts
+Disallow: /fonts
+Disallow: /settings
+Disallow: /whois
+Disallow: /libs
+Disallow: /*.bak
+Disallow: /*.csv
+Disallow: /*.js
+Disallow: /*.css
+Disallow: /*.ini
+Disallow: /*.jpg
+Disallow: /*.png
+Disallow: /*.gif
+Allow: /gra.php
+Allow: /index.php
+Allow: /*.html
+Allow: /*.htm
+clean-param: edit&tab&par&cid&fields&cust&id&site&ids&login&emlu /gra.php
+clean-param: edit&tab&par&cid&fields&cust&id&site&ids&login&emlu&inition /
+
+Sitemap: https://deltar.ru/sitemap.xml
+Sitemap: 

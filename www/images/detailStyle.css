@@ -1,0 +1,57 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 0px;
+	margin: 0px;
+}
+
+div.head {
+	text-align: center;
+	background-color: #B8B8D0;	
+	font-size: 18px;
+	padding: 5px;
+}
+
+table {
+    border: solid 1px #808080;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    padding: 5px;
+    border: solid 1px #808080;
+}
+
+tr.s0 {
+	background-color: #EBECEB;
+}
+
+tr.s1 {
+	background-color: #E4E4E4;	
+}
+
+td.c1 {
+	width: 30%;
+	font-weight: bold;
+}
+
+#close, #close:visited {
+	display: block;
+	color: #000;
+	text-decoration: none;
+	padding: 1px 5px;
+	background-color: #CA8BC8;
+	border: solid 1px black;
+	font-weight: bold;
+	position: absolute;
+	top: 2px;
+	right: 5px;
+	cursor: pointer;
+}
+
+#close:hover {
+	color: #FFF ! important;
+}
+

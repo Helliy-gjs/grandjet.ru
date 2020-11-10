@@ -1,0 +1,53 @@
+.my-message {
+   width:300px;
+   height:110px;
+   background-color:#F08080;
+   text-align: center;
+   border: 2px groove black;
+}
+.my-message-title {
+  height:20px;
+  font-size:120%;
+  background-color:red;
+}
+.my-message-body {
+  padding: 5px;
+  height: 50px;
+}
+.up-message {
+   width:300px;
+   height:110px;
+   background-color:#F08080;
+   text-align: center;
+   border: 2px groove black;
+}
+.up-message-title {
+  height:20px;
+  font-size:120%;
+  background-color:red;
+}
+.up-message-body {
+  padding: 5px;
+  height: 20px;
+}
+.opt-menu {
+   width:300px;
+   height:20px;
+   background-color:#F08080;
+   text-align: center;
+   border: 2px groove black;
+}
+.up-menu {
+   width:300px;
+   height:110px;
+   background-color:#F08080;
+   text-align: center;
+   border: 2px groove black;
+   }
+   .up-menuH{
+   width:500px;
+   height:25px;
+   background-color:#F08080;
+   text-align: center;
+   border: 2px groove black;
+   }
