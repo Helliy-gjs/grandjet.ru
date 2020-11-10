@@ -2682,6 +2682,7 @@ static function showLandPersonal($arrmain,$Pth,$YourMaket,$db){
 	//$YourMakets = $db->allmakets(1,$maket);
 	//$YourMaket = $YourMakets[$arrmain['idmen'][0].'-'.$arrmain['nump']];
 	//$YourMaket = explode('|',$YourMakets[0][10]);	
+	//debug($YourMaket);
 	$arrClasNumber = explode('*',$YourMaket[0][10]);	
 	$mainClas = explode(',',$arrClasNumber[0]);
 	$numbClas = explode(',',$arrClasNumber[1]);
@@ -3014,6 +3015,8 @@ static function showSwipSliders($arr,$clas='mainslider',$clasPag='mainslider__do
 }
 
 static function showShopHeader($Pth,$arrmain,$clasShop='',$contentShop='',$optMenu='',$Icons=''){
+	$tel1 = '8-925-505-34-21';
+	$tel2 = '8-800-1234567';
 	$glsr = glossary();
 	if($arrmain != ''){
 		//echo 'страницы загружены';
@@ -3024,7 +3027,9 @@ static function showShopHeader($Pth,$arrmain,$clasShop='',$contentShop='',$optMe
 		$dat1['href'] = array('options.html','options.html#sale','options.html#movie',
 		'options.html#warrant','options.html#pay','options.html#contacts');
 		$numOrder = 12;
-		if($arrmain['owner']->city !='' && $arrmain['owner']->telmain != 'no')$contscts = '<div class="contacts-header__label">'.$arrmain['owner']->city.'</div><a href="tel:'.$arrmain['owner']->telmain.'" class="contacts-header__phone">'.$arrmain['owner']->telmain.'</a>';		 
+		if($arrmain['owner']->city !='' && $arrmain['owner']->telmain != 'no')$contscts = '<div class="contacts-header__label">'.$arrmain['owner']->city.'</div><a href="tel:'.$arrmain['owner']->telmain.'" class="contacts-header__phone">'.$arrmain['owner']->telmain.'</a>';
+		else $contscts = '<div class="contacts-header__label">Москва</div><a href="tel:'.$tel1.'" class="contacts-header__phone">'.$tel1.'</a>';		
+		$contactadd = '<a href="tel:'.$tel2.'" class="contacts-header__phone">'.$tel2.'</a>';
 		if($arrmain['owner']->tels !='')$contactadd = '<a href="tel:'.$arrmain['owner']->tels.'" class="contacts-header__phone">'.$arrmain['owner']->tels.'</a>';
 		$contLogo = $contLogo = show::showlogo('top-header__logo','',$Pth,8);
 		if($arrmain['typmen'][3] != 'nbt')$contenTop = maket::viewdatapage($dat1,'menu',$Pth,'','ul');

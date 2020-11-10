@@ -21,10 +21,10 @@ $light = 'light';
 $type_site = 'land';
 if(!isset($Pth)) $Pth = '';
 $dat1['typesite'] = 'spa';
-if(file_exists(CLASSES.'/personalLandData.inc') && isset($numpage)) include(CLASSES.'/personalLandData.inc');
-else echo 'не дoступен '.CLASSES.'/lpersonalLandData.inc';
-if(file_exists(CLASSES.'/personalLandMaket.inc') && isset($numpage)) include(CLASSES.'/personalLandMaket.inc');
-else echo 'не дoступен '.CLASSES.'/personalLandMaket.inc';
+if(file_exists(CLASSES.'personalLandData.inc')) include(CLASSES.'personalLandData.inc');
+else echo 'не дoступен '.CLASSES.'personalLandData.inc';
+if(file_exists(CLASSES.'personalLandMaket.inc')) include(CLASSES.'personalLandMaket.inc');
+else echo 'не дoступен '.CLASSES.'personalLandMaket.inc';
 echo show::loaderLand();
 echo show::showHeaderLand($Pth,$id,$datM,'main_head','data-parallax="scroll" data-image-src="img/bg.jpg" data-z-index="1"``');
 

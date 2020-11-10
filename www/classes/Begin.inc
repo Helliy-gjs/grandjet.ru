@@ -43,9 +43,6 @@ define('HOST_ROOT',     '/bhome/part2/01/ritondel/'.$_SERVER['HTTP_HOST'].'/www/
 define('HOST_ARCH',     '/bhome/part2/01/ritondel/archive');
 //echo HTTP_FOLDER;
 
-$ew = Singleton::getInstance('elementsW');
-$sw = Singleton::getInstance('StructureW');
-$user = Singleton::getInstance('User');
 
 //определяем статус пользователя
 $user->check();
@@ -72,8 +69,8 @@ if (!$user->initbdF($_SERVER['HTTP_HOST'])) {
 //регистрируем 	в таблице allsites
 	
 }
-else {
-	$Site=$user->initbdF($_SERVER['HTTP_HOST']);
+elseif(isset($Site)) {
+	
 	if($_SERVER['HTTP_HOST']==='localhost')$Site->domen='localhost/www/'.$Site->domen;
 	$tabl=Utils::getsitetables($Site->domen,$db);
 	$clas['tabl'] = $tabl;

@@ -17,14 +17,14 @@ echo '</head><body>';
 
 //!Загрузка персональных данных макета сайта  из верстки
 	
-if(file_exists(CLASSES.'/personalShopData.inc') && isset($numpage)) include(CLASSES.'/personalShopData.inc');
-else echo 'не доступен '.CLASSES.'/personalShopData.inc';
-if(file_exists(CLASSES.'/personalShopMaket.inc') && isset($numpage)) include(CLASSES.'/personalShopMaket.inc');
-else echo 'не доступен '.CLASSES.'/personalShopMaket.inc';
+if(file_exists(CLASSES.'personalShopData.inc')) include(CLASSES.'personalShopData.inc');
+else echo 'не доступен '.CLASSES.'personalShopData.inc';
+if(file_exists(CLASSES.'personalShopMaket.inc')) include(CLASSES.'personalShopMaket.inc');
+else echo 'не доступен '.CLASSES.'personalShopMaket.inc';
 //первая загрузка сайта из html верстки
 echo '--------------';
 $contentShop = array('contact' => $contscts,'addcont'=>$contactadd,'logo'=>$contLogo,'top'=>$contenTop,'nav'=>$navMenu,'cat'=>$dat4);
-
+debug($contentShop);
 
 echo show::showShopHeader($Pth,'',$clasShop,$contentShop,$optMenu,$Icons);
 ?>

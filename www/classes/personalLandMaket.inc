@@ -1,5 +1,5 @@
 <?php
-
+$maket = 'land-1';
 //! Выгрузка персональных данных макета сайта в базу данных	
 $number_value_tab = 0;
 $arrFN[0] = $number_value_tab +1;
@@ -71,8 +71,8 @@ $Scrpt_libs = array(
 
 $scrips = maderec($Pth['global']['styles'],1).maderec($Scrpt_libs,1);
 //debug(scrips);
-if($numpage == 0)Maket::addnewGlbMaket($idmaket,'land-'.($numpage+1),1,1,$db,$Maket_Properties,$maket_Form,$scrips);
-else Maket::addnewGlbMaket($idmaket,$disp,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips); 
+if($numpage == 0)Maket::addnewGlbMaket($idmaket+1,$maket,1,1,$db,$Maket_Properties,$maket_Form,$scrips);
+else Maket::addnewGlbMaket($idmaket+1,$disp,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips); 
 $scrps = explode(';',$scrips);
 $action = 'new';
 $number_value_tab = 0;

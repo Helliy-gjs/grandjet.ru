@@ -81,15 +81,41 @@ if(strstr(trim($_SERVER['REQUEST_URI'],'/'),'api') ){
 }
 //	Подключение базы данных
 $db=Utils::loadbdsite($_SERVER['HTTP_HOST']);
-//else  $db = Singleton::getInstance('DB',1);
-if(file_exists(CLASSES.'/Begin.inc')) include(CLASSES.'/Begin.inc');
-//Расчет рабочих параметров сайта
+$ew = Singleton::getInstance('elementsW');
+$sw = Singleton::getInstance('StructureW');
+$user = Singleton::getInstance('User');
+$Site=$user->initbdF($_SERVER['HTTP_HOST']);
+$rest=$user->read_namparams('setMaketPage');
+$arridmen=$rest[1];
 if(!isset($Pth)) $Pth = array();
+//debug($arridmen);
+//echo $arridmen[$Site->strucs];
+$pgTypeExist = intval($db->getscountab($Site->pages,'numpage', 'f','idmenu',$arridmen[$Site->strucs]));
+//var_dump($pgTypeExist);
+//else  $db = Singleton::getInstance('DB',1);
+if($pgTypeExist == 0){
+	$Pth['adm']=array('np'=>1,'uid'=>1,'ids'=>1,'idm'=>1,'sp'=>1);
+	//echo 'Нет ни одной страницы '.$pgTypeExist;
+	if($arridmen[$Site->strucs]== 'shop'){
+		if(file_exists(CLASSES.'loadMainShopPage.inc')) include(CLASSES.'loadMainShopPage.inc');
+		else echo 'не дoступен '.CLASSES.'loadMainShopPage.inc';
+	}
+	elseif($arridmen[$Site->strucs]== 'land'){
+		if(file_exists(CLASSES.'loadMainLandPage.inc')) include(CLASSES.'/loadMainLandPage.inc');
+		else echo 'не дoступен '.CLASSES.'loadMainLandPage.inc';
+	}
+}	
+else {
+	//echo 'страница найдена';
+	//die();
+if(file_exists(CLASSES.'Begin.inc')) include(CLASSES.'Begin.inc');
+//Расчет рабочих параметров сайта
+
 $type_access = 'general';
 
-if(file_exists(CLASSES.'/Defmass.inc') && isset($numpage) && $type_access != 'general') include(CLASSES.'/Defmass.inc');
+if(file_exists(CLASSES.'Defmass.inc') && isset($numpage) && $type_access != 'general') include(CLASSES.'Defmass.inc');
 else {
-	if(file_exists(CLASSES.'/Defshort.inc')) include(CLASSES.'/Defshort.inc');
+	if(file_exists(CLASSES.'Defshort.inc')) include(CLASSES.'Defshort.inc');
 }
 
 $glsr = glossary();
@@ -97,20 +123,10 @@ $glsr = glossary();
 //! Загрузка данных каталога
 //!Параметры настройки макета
 //echo $arrmain['idmen'][0].'-'.$numpage;
- echo $arridmen[$Site->types];
+// echo $arridmen[$Site->types];
 
-if($pgTypeExist  <  1 ){
-	//echo 'Нет ни одной страницы ';
-	if($arridmen[$Site->types]== 'shop'){
-		if(file_exists(CLASSES.'/loadMainShopPage.inc')) include(CLASSES.'/loadMainShopPage.inc');
-		else echo 'не дoступен '.CLASSES.'/loadMainShopPage.inc';
-	}
-	elseif($arridmen[$Site->types]== 'land'){
-		if(file_exists(CLASSES.'/loadMainLandPage.inc')) include(CLASSES.'/loadMainLandPage.inc');
-		else echo 'не дoступен '.CLASSES.'/loadMainLandPage.inc';
-	}
-}	
-else {
+
+
 	$Scrpt_page = $arrmain['scripts'];	
 	$Style_pages = $arrmain['style'];
 	$scripts=$Site->script;
@@ -160,13 +176,13 @@ if($scrs){
 	}
 echo '</head><body>';
 if($arrmain['idmen'][0]== 'shop'){
-	if(file_exists(CLASSES.'/showMainShopPage.inc')) include(CLASSES.'/showMainShopPage.inc');
+	if(file_exists(CLASSES.'showMainShopPage.inc')) include(CLASSES.'showMainShopPage.inc');
 }
 elseif($arrmain['idmen'][0]== 'land'){
-	if(file_exists(CLASSES.'/showMainLandPage.inc')) include(CLASSES.'/showMainLandPage.inc');
+	if(file_exists(CLASSES.'showMainLandPage.inc')) include(CLASSES.'showMainLandPage.inc');
 }
 //загрузка js	
-	if($pgExist && file_exists(CLASSES.'/Jscripts.inc'))include(CLASSES.'/Jscripts.inc');
+	if($pgExist && file_exists(CLASSES.'Jscripts.inc'))include(CLASSES.'Jscripts.inc');
 	//echo '<script src="js/common.js"></script>';
 }
 //! Подключение javascript окружения
