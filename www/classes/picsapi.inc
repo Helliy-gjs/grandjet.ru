@@ -1,6 +1,6 @@
 <?php
-class ParamsApi extends Api {
-public $apiName = 'params';
+class picsApi extends Api {
+public $apiName = 'pics';
 
 private $model,$arr;
 
@@ -11,7 +11,7 @@ public function __construct() {
     // die();
     $this->db = Utils::loadbdsite($_SERVER['HTTP_HOST']);
 	$this->tab = $this->requestUri[1];
-	$number_value_tab = $this->db->getscountab($this->tab,'id','f');
+	$number_value_tab = $this->db->getscountab($this->tab,'idpic','f');
     if(!$this->arr)$this->arr = array($number_value_tab +1,$number_value_tab +1,'имя00'.($number_value_tab +1),0,$number_value_tab +1,0,12,'описание');
     
     }
@@ -57,10 +57,10 @@ public function __construct() {
         $id = $parse_url['path'] ?? null;
         $this->arr[0]=$id;
         if(!$id || !$this->db->getById($this->tab, $id)){
-            return $this->response("rec with id=$id not found", 404);
+            return $this->response("rec with idpic=$id not found", 404);
         }
         if($this->arr){
-            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'id')){
+            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'idpic')){
                 return $this->response('Data updated.', 204);
             }
         }
@@ -72,10 +72,10 @@ public function __construct() {
         $id = $parse_url['path'] ?? null;
         $this->arr[0]=$id;
         if(!$id || !$this->db->getById($this->tab, $id)){
-            return $this->response("rec with id=$id not found", 404);
+            return $this->response("rec with idpic=$id not found", 404);
         }
         if($this->arr){
-            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'id')){
+            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'idpic')){
                 return $this->response('Data updated.', 204);
             }
         }

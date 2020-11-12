@@ -1,6 +1,6 @@
 <?php
-class ParamsApi extends Api {
-public $apiName = 'params';
+class kursApi extends Api {
+public $apiName = 'kurs';
 
 private $model,$arr;
 
@@ -11,8 +11,8 @@ public function __construct() {
     // die();
     $this->db = Utils::loadbdsite($_SERVER['HTTP_HOST']);
 	$this->tab = $this->requestUri[1];
-	$number_value_tab = $this->db->getscountab($this->tab,'id','f');
-    if(!$this->arr)$this->arr = array($number_value_tab +1,$number_value_tab +1,'имя00'.($number_value_tab +1),0,$number_value_tab +1,0,12,'описание');
+	$number_value_tab = $this->db->getscountab($this->tab,'datcurs','f');
+    if(!$this->arr)$this->arr = array($number_value_tab +1,$number_value_tab +1,'order00'.($number_value_tab +1),0,$number_value_tab +1,0,12,'новость');
     
     }
 
@@ -35,7 +35,7 @@ public function __construct() {
     //id должен быть первым параметром после /users/x
     $id = array_shift($this->requestUri);
     if($id && $this->tab){
-        $struc = $this->db->getById($this->tab, $id);
+        $struc = $this->db->getById($this->tab, $id,'datcurs');
         if($struc){
             return $this->response($struc, 200);
         }
@@ -45,7 +45,7 @@ public function __construct() {
 
     public function createAction() {
         if($this->arr){
-            if($this->db->createFullCategory($this->tab, $this->arr)){
+            if($this->db->createFullCategory($this->tab, $this->arr,'datcurs')){
                 return $this->response('Data saved.', 201);
             }
         }
@@ -54,13 +54,14 @@ public function __construct() {
 
     public function updateAllAction(){
         $parse_url = parse_url($this->requestUri[0]);
-        $id = $parse_url['path'] ?? null;
+        if($parse_url['path'])$id = $parse_url['path'] ;
+	else 	$id =  null;
         $this->arr[0]=$id;
-        if(!$id || !$this->db->getById($this->tab, $id)){
+        if(!$id || !$this->db->getById($this->tab, $id,'datcurs')){
             return $this->response("rec with id=$id not found", 404);
         }
         if($this->arr){
-            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'id')){
+            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'datcurs')){
                 return $this->response('Data updated.', 204);
             }
         }
@@ -69,13 +70,14 @@ public function __construct() {
 
     public function updateAction() {
         $parse_url = parse_url($this->requestUri[0]);
-        $id = $parse_url['path'] ?? null;
+        if($parse_url['path'])$id = $parse_url['path'] ;
+	else 	$id =  null;
         $this->arr[0]=$id;
-        if(!$id || !$this->db->getById($this->tab, $id)){
+        if(!$id || !$this->db->getById($this->tab, $id,'datcurs')){
             return $this->response("rec with id=$id not found", 404);
         }
         if($this->arr){
-            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'id')){
+            if($struc = $this->db->updateCategory($this->tab, $this->arr, 'datcurs')){
                 return $this->response('Data updated.', 204);
             }
         }
@@ -84,13 +86,15 @@ public function __construct() {
 
     public function deleteAction(){
     $parse_url = parse_url($this->requestUri[0]);
-    $userId = $parse_url['path'] ?? null;
-    if(!$userId || !$this->db->getById($this->tab, $userId)){
-        return $this->response("User with id=$userId not found", 404);
+    if($parse_url['path'])$id = $parse_url['path'] ;
+	else 	$id =  null;
+    if(!$id || !$this->db->getById($this->tab, $id,'datcurs')){
+        return $this->response("User with id=$id not found", 404);
     }
-    if($this->db->deleteById($this->tab, $userId)){
+    if($this->db->deleteById($this->tab, $id,'datcurs')){
         return $this->response('Data deleted.', 202);
     }
     return $this->response("Delete error", 500);
 }
 }    
+?>

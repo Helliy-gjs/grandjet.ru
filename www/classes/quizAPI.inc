@@ -1,6 +1,6 @@
 <?php
-class allmaketsApi extends Api {
-public $apiName = 'allmakets';
+class quizApi extends Api {
+public $apiName = 'quiz';
 
 private $model,$arr;
 

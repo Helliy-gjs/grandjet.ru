@@ -30,54 +30,7 @@ else include_once(CLASSES.'autoload.inc');
 if(file_exists('functions.php'))include_once('functions.php');
 //debug($_SERVER['REQUEST_URI']);
 if(strstr(trim($_SERVER['REQUEST_URI'],'/'),'api') ){	
-	try {
-		if(strstr($_GET['q'],'api/users')){
-		$api = new usersapi();
-    }
-    elseif(strstr($_GET['q'],'api/structure')){
-        $api = new StrucsApi();
-    }
-    elseif(strstr($_GET['q'],'api/elements')){
-            $api = new ElemsApi();
-		}
-	elseif(strstr($_GET['q'],'api/maket')){
-		$api = new MaketApi();
-	}	
-	elseif(strstr($_GET['q'],'api/brends')){
-		$api = new brendsapi();
-	}	
-	elseif(strstr($_GET['q'],'api/news')){
-		$api = new NewsApi();
-	}
-	elseif(strstr($_GET['q'],'api/infos')){
-		$api = new infosApi();
-	}
-	elseif(strstr($_GET['q'],'api/blogs')){
-		$api = new blogsApi();
-	}
-	elseif(strstr($_GET['q'],'api/quiz')){
-		$api = new quizApi();
-	}
-	elseif(strstr($_GET['q'],'api/params')){
-		$api = new paramsApi();
-	}
-	elseif(strstr($_GET['q'],'api/pic')){
-		$api = new picApi();
-	}
-	elseif(strstr($_GET['q'],'api/allmakets')){
-		$api = new allmaketsApi();
-	}
-	elseif(strstr($_GET['q'],'api/allsites')){
-		$api = new allsitesApi();
-	}	
-	elseif(strstr($_GET['q'],'api/pages')){
-		$api = new PagesApi();
-	}																						
-    echo $api->run();
-	} catch (Exception $e) {
-	echo json_encode(Array('error' => $e->getMessage()));
-	}
-	die();
+	include(CLASSES.'allapi.inc');
 }
 //	Подключение базы данных
 $db=Utils::loadbdsite($_SERVER['HTTP_HOST']);
@@ -154,7 +107,7 @@ if($scrs){
 <title><?=$arrmain['titles']?></title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="shortcut icon" href="favicon.png" />
+<link rel="shortcut icon" href="favicongjs.png" />
 <?php
 //!Подключение css окружения
 
