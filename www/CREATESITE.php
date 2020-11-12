@@ -808,9 +808,9 @@ $query[] = "CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY  (`login`),
   UNIQUE KEY  (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-if(isset($_GET['site']) && $_GET['site'] >0)$typesite = $_GET['site'];
-else $typesite = 0;
-$strucs = 1;
+if(isset($_GET['site']) && $_GET['site'] >0)$strucs = $_GET['site'];
+else $strucs = 0;
+$typesite = 1;
 try {
 		foreach($query as $val)
 			$db->query($val);

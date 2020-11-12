@@ -117,7 +117,7 @@ foreach($arrcat['sections'] as $val) {
 foreach($arrsubcat as $key=>$value){
 	//debug($value['sections']);	
 	$contentShopCat['label'][$key] = '';
-	$dat3[$key] = array($glsr['td'],$glsr['nt'],$glsr['sd']);
+	$dat3[$key] = array($glsr['td'],$glsr['nt'],$glsr['bn']);
 	foreach($dat3[$key] as $k=>$val) $contentShopCat['label'][$key] .= maket::spanclasstr($val,$Pth,'item-product__label','div');
 	foreach($value['sections'] as $k=>$val) {
 		$contentShopCat['sub'][$key]['dat'][$k]=$val['name'];

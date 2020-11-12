@@ -1,27 +1,25 @@
 <?php
-class ParamsApi extends Api {
-public $apiName = 'params';
+class teApi extends Api {
+public $apiName = 'type-elements';
 
-private $model,$arr;
+private $sw,$arr;
 
 public function __construct() {
     parent::__construct();
     $apiName = $this->tab;
-    // echo $this->method;
-    // die();
-    $this->db = Utils::loadbdsite($_SERVER['HTTP_HOST']);
+    //echo $apiName;
+    //die();
+	$this->db = Utils::loadbdsite($_SERVER['HTTP_HOST']);
 	$this->tab = $this->requestUri[1];
 	$number_value_tab = $this->db->getscountab($this->tab,'id','f');
-    if(!$this->arr)$this->arr = array($number_value_tab +1,$number_value_tab +1,'имя00'.($number_value_tab +1),0,$number_value_tab +1,0,12,'описание');
-    
-    }
+    $this->arr = array($number_value_tab +1,12,'имя000',0,0,0,12,'описание');
+	}
 
 	function getTab(){
             return $this->tab;
         }
-
     public function indexAction() {
-        
+    
         if($this->tab){
             $strucs = $this->db->getAll($this->tab);
                 if($strucs){
@@ -46,15 +44,18 @@ public function __construct() {
     public function createAction() {
         if($this->arr){
             if($this->db->createFullCategory($this->tab, $this->arr)){
+                http_response_code(201);
                 return $this->response('Data saved.', 201);
             }
+            //else return $this->response("Saving error", 500);
         }
-        return $this->response("Saving error", 500);
+        
     }
 
-    public function updateAllAction(){
+        public function updateAllAction(){
         $parse_url = parse_url($this->requestUri[0]);
-        $id = $parse_url['path'] ?? null;
+        if($parse_url['path'])$id = $parse_url['path'] ;
+	else 	$id =  null;
         $this->arr[0]=$id;
         if(!$id || !$this->db->getById($this->tab, $id)){
             return $this->response("rec with id=$id not found", 404);
@@ -69,7 +70,8 @@ public function __construct() {
 
     public function updateAction() {
         $parse_url = parse_url($this->requestUri[0]);
-        $id = $parse_url['path'] ?? null;
+       if($parse_url['path'])$id = $parse_url['path'] ;
+	else 	$id =  null;
         $this->arr[0]=$id;
         if(!$id || !$this->db->getById($this->tab, $id)){
             return $this->response("rec with id=$id not found", 404);
@@ -84,13 +86,15 @@ public function __construct() {
 
     public function deleteAction(){
     $parse_url = parse_url($this->requestUri[0]);
-    $userId = $parse_url['path'] ?? null;
-    if(!$userId || !$this->db->getById($this->tab, $userId)){
-        return $this->response("User with id=$userId not found", 404);
+    if($parse_url['path'])$id = $parse_url['path'] ;
+	else 	$id =  null;
+    if(!$id || !$this->db->getById($this->tab, $id)){
+        return $this->response("User with id=$Id not found", 404);
     }
-    if($this->db->deleteById($this->tab, $userId)){
+    if($this->db->deleteById($this->tab, $id)){
         return $this->response('Data deleted.', 202);
     }
     return $this->response("Delete error", 500);
 }
-}    
+}
+?>

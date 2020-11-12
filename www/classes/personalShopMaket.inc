@@ -30,7 +30,7 @@ $Style_pages = array('style','main','homepage','footer');
 $Scrpt_page = array('wNumb.min','nouislider','swiper','script.min');
 $scrips = '';
 $maket_Form = '|';
-if($numpage=1)Maket::addnewGlbMaket($idmaket,$maket ,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips);
+if($numpage=1)Maket::addnewGlbMaket($idmaket+1,$maket ,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips);
 else Maket::addnewGlbMaket($idmaket + 1,$disp.'-'.$numpage,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips); 
 //!Преобразование контента страницы в массивы для записи в базу данных
 //каталог брендов таблица brends
