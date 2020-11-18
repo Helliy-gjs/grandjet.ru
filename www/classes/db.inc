@@ -43,17 +43,17 @@ private $location = 'sportshop.loc',
 	$port = 3306,
 	$conn = null, 
 	$query = '', 
-	$result = null;
+	$result = null;*/
 			
-	/*private $location0 = 'mysql.baze.deltar.ru',
+	private $location0 = 'mysql.baze.deltar.ru',
 			$user0 = 'gjs_deltar_ru',
 			$pass0 = 'ittBudB5',
-			$dbname0 = 'deltar_ru',
+			$dbname0 = 'grandjet_ru',
 			$port0 = 63917,
 			$conn0 = null, 
 			$query0 = '', 
 			$result0 = null;
-	
+	/*
 	private $location1 = 'mysql.baze.deltar.ru',
 			$user1 = 'gjs_deltar_ru',
 			$pass1 = 'ittBudB5',
@@ -786,6 +786,42 @@ public function allmakets($ids,$maket='Maket'){
 	return $return;
 	}
 	}
+
+	public function right_access($ds) {
+	
+	$arrdesc=explode('|',$ds);		
+	if($arrdesc[0]<>'') $ret['GA']=$arrdesc[0];
+	else $ret['GA']=false;
+	if($arrdesc[1]<>'') $ret['YM']=$arrdesc[1];
+	else $ret['YM']=false;	
+	if($arrdesc[2]=='N')$ret['PR']='http://';
+	else $ret['PR']='https://';	
+	if(!isset($arrdesc[3]))$ret['metr']=false;
+	else $ret['metr']=true;
+	
+	return $ret;
+}
+
+public function loadFormsData($Your_Forms){
+	$d = "SELECT * FROM `nameform` WHERE `id`=^Ni;";
+	$Namform = $this->query($d, $Your_Forms);
+	$d = "SELECT * FROM `forms` WHERE `idform`=^Ni;";
+	$Fieldform = $this->query($d,$Namform->id);
+	//debug($Fieldform);
+	foreach($Fieldform as $val){
+		$arrF['js'][] = $val->method;
+		$arrF['cls'][] = $val->clas_field;
+		$arrF['type'][] = $val->type_field;
+		$arrF['place'][] = $val->place_field;
+		$arrF['req'][] = $val->req_field;
+		$arrF['name'][] = $val->name_field;
+		$arrF['label'][] = $val->label;
+		$arrF['valid'][] = $val->default;
+	}
+	$arrF['act'][] = $Namform->handler;
+	$arrF['method'][] = $Namform->method;
+	return $arrF;
+}
 
 	public function getallfieldtable($table){
 		$result = $this->query("SHOW COLUMNS FROM `$table`");

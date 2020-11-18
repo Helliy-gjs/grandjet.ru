@@ -14,9 +14,9 @@ abstract class Api
 
     public function __construct() {
         header("Access-Control-Allow-Orgin: *");
-        header("Access-Control-Allow-Methods: *");
-        header("Access-Control-Allow-Headers: *");
-        header("Access-Control-Allow-Credentials: *");
+		header("Access-Control-Allow-Methods: GET,POST,PUT,PUTCH,DELETE");
+        //header("Access-Control-Allow-Headers: *");
+        //header("Access-Control-Allow-Credentials: true");
         header("Content-Type: application/json");
 
         //Массив GET параметров разделенных слешем

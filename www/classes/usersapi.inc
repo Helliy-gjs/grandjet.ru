@@ -2,7 +2,7 @@
 class UsersApi extends Api {
 public $apiName = 'users';
 
-private $sw,$arr;
+private $strucs,$sw,$arr;
 
 public function __construct() {
     parent::__construct();
@@ -23,8 +23,10 @@ public function __construct() {
 
         if($this->tab){
             $strucs = $this->db->getAll($this->tab);
+			$return = array('id'=>$strucs->id,'login'=>$strucs->login,'email'=>$strucs->email,'secureKey'=>$strucs->pass,'activated' =>$strucs->activate,'level'=>$strucs->level,'ms'=>$strucs->ms,'timesp'=>$strucs->time + 3600,'cust'=>$strucs->customerid,'numberSite'=>$strucs->siid);
                 if($strucs){
-            return $this->response($strucs, 200);
+			var_dump($this->response($return, 200));		
+            return $this->response($return, 200);
             }
         }
         return $this->response('DataS not found', 404);

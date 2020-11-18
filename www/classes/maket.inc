@@ -342,7 +342,7 @@ static function divclasstr($clas,$Pth,$style='',$prefix='',$selector='div',$comm
 		else $cls='';
 	}
 	else {
-		if ($prefix<>'') $cls=trim('id="'.trim(substr($clas,1)).' " '.'class="'.$prefix.'"');
+		if ($prefix<>'') $cls=trim('id="'.trim(substr($clas,1)).'" '.'class="'.$prefix.'"');
 		else $cls='id="'.trim(substr($clas,1)).'"'; 
 		}	
 
