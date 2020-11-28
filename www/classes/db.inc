@@ -19,22 +19,22 @@ private function namebasedata(){
 function namecurbd(){
 	return $this-> namebasedata();
 	}
-	/*private $location = 'baze.grandjet.ru',
+	private $location = 'baze.grandjet.ru',
 			$user = 'grandjet_ru',
 			$pass = 'XtG6DmEP',
 			$dbname = 'grandjet_ru',
 			$port = 64000,
 			$conn = null, 
 			$query = '', 
-			$result = null;*/
-	private $location = 'mysql.baze.deltar.ru',
+			$result = null;
+	/*private $location = 'mysql.baze.deltar.ru',
 			$user = 'gjs_deltar_ru',
 			$pass = 'ittBudB5',
 			$dbname = 'grandjet_ru',
 			$port = 63917,
 			$conn = null, 
 			$query = '', 
-			$result = null;
+			$result = null;*/
 /*	
 private $location = 'sportshop.loc',
 	$user = 'root',

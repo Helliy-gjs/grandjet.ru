@@ -2673,8 +2673,8 @@ static function showLandPersonal($arrmain,$Pth,$YourMaket,$db){
 	$dataIcons1 = array(0=>'<i class="icon-basic-case"></i>',
 	1=>'<i class="icon-basic-book-pen"></i>'); 
 	$dataIcons2['dat'] = array(1=>$datSoc['dat']['vk'],2=>$datSoc['dat']['fb'],3=>$datSoc['dat']['gh']);
-		
-	$datM = array($arrmain['owner']->cfio,$arrloz[2],$glsr['am'],$glsr['rm'],$glsr['pf'],$glsr['ct']);	
+	if($arrmain['owner']->cfio == 'no')	$arrmain['owner']->cfio = 'admin '.$_SERVER['HTTP_HOST'];
+	$datM = array($arrmain['owner']->cfio,$arrloz[2],$glsr['am'],$glsr['rm'],$glsr['pf'],$glsr['cn']);	
 	$blogC = array(0=>$arrmain['owner']->cfio,
 	1=>$arrmain['owner']->uradr,
 	2=>$arrmain['owner']->telmain,

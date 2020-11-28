@@ -5,7 +5,7 @@ $dat['dat'][0] = $arrloz;
 $dat['dat'][1] = $glsr['bd'].': 2 января 1962 года';
 $dat['dat'][2]= $glsr['tn'].': +79255053421';
 $dat['dat'][3] = $glsr['el'].': <a href="mailto:ruslan@deltar.ru">ruslan@deltar.ru</a>';
-$dat['dat'][4] = $glsr['ws'].': <a href="//land.deltar.ru" target="_blank">land.deltar.ru</a>';
+$dat['dat'][4] = $glsr['ws'].': <a href="//grandjet.ru" target="_blank">grandjet.ru</a>';
 //$dat['typesite'] = 'spa';
 $img = array(0=>'photo.jpg');
 $datSoc['dat'] = array('twitter' => '<i class="fa fa-twitter"></i>',
@@ -24,7 +24,7 @@ if(isset($contentSite['owner']['dborn'])) $dat['dat'][1] = $glsr['bd'].': <a hre
 if(isset($arrmain['namep'][4])) $dat['dat'][4] = $glsr['ws'].': <a href="//'.$arrmain['namep'][4].'" target="_blank">'.$arrmain['namep'][4].'</a>';
 if(isset($contentSite['owner']['cfio'])) $firstname = $contentSite['owner']['cfio'];
 else $firstname = 'Руслан Серегин';
-$datM = array($firstname,$arrloz[2],$glsr['am'],$glsr['rm'],$glsr['pf'],$glsr['ct']);	
+$datM = array($firstname,$arrloz[2],$glsr['am'],$glsr['rm'],$glsr['pf'],$glsr['cn']);	
 $dataIcons1 = array(0=>'<i class="icon-basic-case"></i>',
 1=>'<i class="icon-basic-book-pen"></i>'); 
 $dataIcons2['dat'] = array(1=>$datSoc['dat']['vk'],2=>$datSoc['dat']['fb'],3=>$datSoc['dat']['gh']);
