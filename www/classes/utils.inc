@@ -104,6 +104,7 @@ class Utils {
 		}
 		return $res;
 	}
+	
 	static function prepare_pages($uid,$domen,$npg,$nn,$db,$typmen=0,$load_files=''){
 	//Загрузка страниц в пустую таблицу
 	$user=Singleton::getInstance('User');
@@ -184,7 +185,7 @@ class Utils {
 		$conf=utils::getConfig(1,'configp',1);
 		if(!isset($conf))$conf='1|customers'.$np.'|4;4;4;4;4;4;6;8;2;8;2;6;2;5;6;6;4;2;';
 		else $conf='1|customers|'.$conf;
-		$db->query("INSERT INTO `".$tabl['pages']."` (`numpage`, `namep`, `lozungp`, `keywords`, `buttons`, `hrefp`, `typemenu`, `hrefscripts`, `hrefstyle`, `title`, `content`, `idmenu`, `levelmenu`, `hrefimage`, `list`, `list_href`, `butthref`, `buttimg`, `imgtext`, `idnews`, `site`,`idauthor`,`configpage`) VALUES ('$np', 'empty', 'lozung1;lozung2;lozung3;|$np;$np;$np;', 'key1>key2>key3;title_page;description_page','button1;button2;button3;|$np;$np;$np;', '', 'wr;bl;mn;bt;hd;ft;fb;sw;fo;ga;sr;sl;sc;ac', ';', ';', '$titl0', '$text_cont;|$np;$np;$np;$np;$np;$np', 'flex', 0,'1.jpg;2.jpg;3.jpg;4.jpg;5.jpg;', 'Menu;Menu;Menu;Menu', '$np;$np;$np;$np', 'Menu1;Menu2;Menu3;Menu4;Menu5;Menu6|$np;$np;$np;$np;$np;$np','Foot1;Foot2;Foot3;Foot4;Foot5;Foot6;|$np;$np;$np;$np;$np;$np','$text_img;|$np;$np;$np;', 0,'$domen',$uid,'$conf' );");
+		$db->query("INSERT INTO `".$tabl['pages']."` (`numpage`, `namep`, `lozungp`, `keywords`, `buttons`, `hrefp`, `typemenu`, `hrefscripts`, `hrefstyle`, `title`, `content`, `idmenu`, `levelmenu`, `hrefimage`, `list`, `list_href`, `butthref`, `buttimg`, `imgtext`, `idnews`, `site`,`idauthor`,`configpage`) VALUES ('$np', 'banmain.jpg|logo.png|||', 'lozung1;lozung2;lozung3;|$np;$np;$np;', 'key1>key2>key3;title_page;description_page','button1;button2;button3;|$np;$np;$np;', '', 'nwr;bl;mn;bt;hd;ft;fb;sw;fo;ga;sr;sl;sc;ac', ';', ';', '$titl0', '$text_cont;|$np;$np;$np;$np;$np;$np', 'flex', 0,'1.jpg;2.jpg;3.jpg;4.jpg;5.jpg;', 'Menu;Menu;Menu;Menu', '$np;$np;$np;$np', 'Menu1;Menu2;Menu3;Menu4;Menu5;Menu6|$np;$np;$np;$np;$np;$np','Foot1;Foot2;Foot3;Foot4;Foot5;Foot6;|$np;$np;$np;$np;$np;$np','$text_img;|$np;$np;$np;', 0,'$domen',$uid,'$conf' );");
 	Utils::prepare_news($nn,$tabl,$db); 
 	$db->commit(); 
 	$db->autocommit(TRUE);

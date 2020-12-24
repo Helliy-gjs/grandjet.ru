@@ -808,18 +808,32 @@ $query[] = "CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY  (`login`),
   UNIQUE KEY  (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;";
-if(isset($_GET['site']) && $_GET['site'] >0)$strucs = $_GET['site'];
-else $strucs = 0;
-$typesite = 1;
 try {
 		foreach($query as $val)
 			$db->query($val);
 	} catch(DBException $e) {
 		exit($e.' from '.__FILE__.':'.__LINE__);
 	}
+	if($_GET['site'] >0)$strucs = $_GET['site'];
+	else $strucs = 0;
+	$typesite = 1;
 	$user = Singleton::getInstance('User');
 	$desc = array('own' =>'','ownbd' =>'Y','cym'=>'','cga' =>'');
-	if($user->addAdmin('admin', 'veravolf','ruslan@grandjet.ru')){
+	if(isset($_POST['adms']) && isset($_POST['pass']) && isset($_POST['passw'])&& isset($_POST['eml'])){
+		$login = $_POST['adms'];
+		$passw = $_POST['passw'];
+		$pass = $_POST['pass'];
+		$email = $_POST['eml'];
+	}
+	else {
+		$login = 'admin';
+		$pass = 'veravolf';
+		$passw = 'veravolf';
+		$email = 'ruslan@grandjet.ru';
+	}
+	$_POST['uid']= 1;
+	$_POST['site']=1;
+	if($user->addAdmin($login,$pass,$email) && $pass == $passw){
 			$control_summa=$user->regbd($_SERVER['HTTP_HOST'],1,'',$typesite,$strucs);
 			if($control_summa>0) echo '<br>Сайт подключен за номером '.$control_summa.'<br>';
 			
@@ -830,5 +844,5 @@ echo '<br>DONE<br>';
 echo '<form id="first" action="http://'.$_SERVER["HTTP_HOST"].'" method="post">';
 echo '<br><input name="site" value="'.$_POST["site"].'" type="hidden">';
 echo '<span><input type="submit"  value="ШАГ: 3. Готово!..."/><br><br>';
-echo '</form></td></tr></table>';		
+echo '</form></td></tr></table>';			
 ?>

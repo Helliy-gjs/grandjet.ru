@@ -82,57 +82,47 @@ public function Shownametype($p) {
   echo '<br/>';
   }
   }
-  function getscountab($tab,$key,$mode){
-		$db=Singleton::getInstance('DB');
-		
+  	function getscountab($tab,$key,$mode){
+		$db = Singleton::getInstance('DB');
 		$order = ' ORDER BY ';
 		$order .= '`numpage`';
 		$order .= ' DESC ';
-		//print_r($Site);
 		if ($key <>''&& $mode =='f') {
-			$d="SELECT * FROM `$tab` ORDER BY $key DESC";
-			$res=$db->query($d);
+			$d="SELECT `$key` FROM `$tab` ORDER BY $key DESC";
+			$res=$this->db->query($d);	
 		}
-		//else { 
-		//if ($tab == 'pages') $d='SELECT * FROM `pages` WHERE `site`=^Ns;,'.$Site->domen;
 		elseif($mode == 't' && strstr($tab,'pages'))  {
-			//$Site=$user->initbdF($_SERVER['HTTP_HOST']);
-			$d="SELECT * FROM `$tab` WHERE `$key`=^Ns $order;";
-			//echo 'зашли '.$d.','.$_SERVER['HTTP_HOST'];
-			$res=$db->query($d,$_SERVER['HTTP_HOST']);
-			//print_r($res);
+			$d="SELECT `$key` FROM `$tab` WHERE `$key`=^Ns $order;";
+			$res=$this->db->query($d,$_SERVER['HTTP_HOST']);
 			$key='numpage';
-			}
+		}
+		elseif($mode == 't' && strstr($tab,'map'))  {
+			$site=$this->initbd($_SERVER['HTTP_HOST'],$db);
+			$d="SELECT `$key` FROM `$tab` WHERE `domen`=^Ns;";
+			$res=$this->db->query($d,$site->domen);
+			}	
 		else {
 			$d="SELECT * FROM `$tab` ";
 			$mode='c';
-			$res=$db->query($d);
-			}
-//echo '<br>'.$d.','.$GLOBALS['Site']->domen;
-$l=0;
-if (count($res) >1) {
-while ($element =each($res)) {
-	$result[$l]=$element['value'];
-	$l++;
-	}	
-}
-else $result[0]=$res;
-//echo 'res '.$result[0]->$key;
-//echo '<br>';
-//print_r($result[0]);
-if ($mode == 'c')	return count($res);				
-else return $result[0]->$key;
-}
-
-	function prepare_elem($mode=1) {
-	if ($mode == 10001){
-		$this->db->query('TRUNCATE TABLE `elements`;');
-		$this->db->query('TRUNCATE TABLE `elements-elements`;');
-		$this->db->query('TRUNCATE TABLE `type-elements`;');
+			$res=$this->db->query($d);
 		}
-	echo 'prepare OK';echo "<BR>";
-	}	
+$l=0;
+//var_dump($res);
+if($res){
+	if (is_array($res)) {
+		if(count($res) >1) 	foreach($res as $l=>$val)$result[$l]=$val;
+	}
+	else {
+		$result[0] = new ArrayObject;
+		$result[0]->key=$res;
+	}
 
+if($mode <> '' && $key<>'' && isset($result[0]->$key)) return $result[0]->$key; 
+elseif(is_array($res)) return count($res);
+else return $res;			
+}			
+else return 0;
+}
 	private function addSection($id,$pid, $name,$tabl,$typeF=1) {
 		$Page= new Page($id,$tabl);
 		$name=$Page->getnamepage($Page);

@@ -1,6 +1,6 @@
 <?php
 if(isset($_GET['GM'])){
-echo '<h3>Топология макета</h3>';
+echo '<h3>Топология макета=</h3>';
 		$prefix=' grid';
 		$ncontainer=$MP[3];
 		$clas_modul=array($MP[1],$MP[8],$MP[7].'-Left',$MP[10],$MP[7].'-Right',$MP[2],$MP[7].'-Center',$MP[6],$MP[4],$MP[5],$MP[17],$MP[11],'wrapper-'.$MP[16]);

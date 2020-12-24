@@ -84,8 +84,8 @@ function readyplace($place){
 		$i=$j=0;
 		$erorrfiles='Не записаны файлы';
 		//echo $choose; 
-		if($upd<>'update' && $choose=='')$FD=array(0=>'ADDsite.php',1=>'map.csv',2=>'index.php',3=>'start.php',4=>'info.php',5=>'logo.png',6=>'logo.jpg',7=>'logo.gif',8=>'banmain.jpg',9=>'banmain.png',10=>'DBinst.php',11=>'favicongjs.png',12=>'img.php',13=>'detail.php',14=>'upgrade.php',15=>'loader2019.php',16=>'robots.txt',17=>'sitemap.xml',18=>'metrica.php',19=>'update.php',21=>'registrator.php',22=>'functions.php',23=>'CREATEMPTYBD.php');
-		elseif($choose=='' && $upd=='update')$FD=array(0=>'favicongjs.png',1=>'img.php',2=>'index.php',3=>'detail.php',4=>'DBinst.php',5=>'loader2019.php',6=>'robots.txt',7=>'sitemap.xml',8=>'metrica.php',9=>'update.php',11=>'registrator.php',12=>'ADDsite.php',13=>'upgrade.php',14=>'functions.php');
+		if($upd<>'update' && $choose=='')$FD=array(0=>'ADDsite.php',1=>'map.csv',2=>'index.php',3=>'start.php',4=>'info.php',5=>'logo.png',6=>'logo.jpg',7=>'logo.gif',8=>'banmain.jpg',9=>'banmain.png',10=>'DBinst.php',11=>'favicongjs.png',12=>'img.php',13=>'detail.php',14=>'upgrade.php',15=>'loader2019.php',16=>'robots.txt',17=>'sitemap.xml',18=>'metrica.php',19=>'update.php',20=>'loadstyles.php',21=>'registrator.php',22=>'functions.php',23=>'CREATEMPTYBD.php');
+		elseif($choose=='' && $upd=='update')$FD=array(0=>'favicongjs.png',1=>'img.php',2=>'index.php',3=>'detail.php',4=>'DBinst.php',5=>'loader2019.php',6=>'robots.txt',7=>'sitemap.xml',8=>'metrica.php',9=>'update.php',10=>'loadstyles.php',11=>'registrator.php',12=>'ADDsite.php',13=>'upgrade.php',14=>'functions.php');
 		elseif(strstr($choose,','))$FD=explode(',',$choose);
 		else $FD[0]=$choose;
 		if( $upd=='update'){ 
@@ -150,14 +150,15 @@ function readyplace($place){
 	
 	function getstylesfiles($clas,$mainmaket,$m,$min=''){
 		//print_r($mainmaket[$m]);
+		if(!isset($mainmaket[$m]))return false;
 		if (strstr($mainmaket[$m],';')) {
 			$MMP=explode(';',$mainmaket[$m]);
-			
+			 
 			foreach($MMP as $val)  {
 					if($val)$Styles[]=$clas['img'].$val.$min.'.css';
 				}
 			}
-		elseif($mainmaket[$m]<>'') $Styles[0]=$clas['img'].$mainmaket[$m].$min.'.css';
+		elseif($mainmaket[$m]<>'') $Styles[$m]=$clas['img'].$mainmaket[$m].$min.'.css';
 		else $Styles='';
 		//show::infosh($Styles);	
 		return $Styles;
@@ -187,19 +188,20 @@ function readyplace($place){
 	if ($this->readyplace('/')){
 	$dir = opendir($src);
 	@mkdir($dst);
-	while(false !== ( $file = readdir($dir)) ) {
+	while(false != ( $file = readdir($dir)) ) {
 		if (( $file != '.' ) && ( $file != '..' )) {
 		if ( is_dir($src . '/' . $file) ) {
-		//echo 'Копируем директорию '.$src . '/' . $file.'<br>';	
+		echo 'Копируем директорию '.$src . '/' . $file.'<br>';	
 		$this->recurse_copy($src . '/' . $file,$dst . '/' . $file);
 		}
 		else {
-			//echo 'Копируем файл '.$src . '/' . $file.'<br>';	
+			echo 'Копируем файл '.$src . '/' . $file.'<br>';	
 			$res=copy($src . '/' . $file,$dst . '/' . $file);
 			//show::infosh($file);
 			//if($res) echo ' success<br>';
 			//else echo ' unlucky<br>';
 		}
+		if(!res){echo 'Копирпование рекурсивное не выполнено';die;}
 		}
 	}
 	closedir($dir);
@@ -285,20 +287,24 @@ function readyplace($place){
 }
 	
 	public function archdatesite($choose=''){
-		//echo 'архивируем... <br>';
+		echo HOST_ARCH. ' <br>';
+		echo HOST_ROOT. ' архивируем... <br>';
+
 		if (!chdir(HOST_ARCH)) {
 			mkdir(HOST_ARCH,0777);
-			//echo 'Создана директория '.HOST_ARCH;
+			echo 'Создана директория '.HOST_ARCH;
+			
 			}
-		//else echo '<br>Директория archive exist';	
+		else echo '<br>Директория archive exist';	
 		if (!chdir(HOST_ARCH.'/'.$_SERVER['HTTP_HOST'])){
 			mkdir(HOST_ARCH.'/'.$_SERVER['HTTP_HOST'],0777);
-			//echo '<br>Создана в archive директория '.$_SERVER['HTTP_HOST'];
+			echo '<br>Создана в archive директория '.$_SERVER['HTTP_HOST'];
 		}
 		else {
-			//echo '<br>Директория archive/'.$_SERVER['HTTP_HOST'].' exist';	
+			echo '<br>Директория archive/'.$_SERVER['HTTP_HOST'].' exist';	
 		}
-		//echo '<br>Копируем в архивную папку ('.HOST_ARCH.'/'.$_SERVER['HTTP_HOST'].') домена '.$_SERVER['HTTP_HOST'].'<br>';
+		echo '<br>Копируем в архивную папку ('.HOST_ARCH.'/'.$_SERVER['HTTP_HOST'].') домена '.HOST_ROOT.'<br>';
+		
 		if($choose===''){
 			$result=$this->copydistfiles(HOST_ROOT,HOST_ARCH.'/'.$_SERVER['HTTP_HOST'],'update');
 		if($result){
@@ -334,7 +340,7 @@ function readyplace($place){
 	//echo 	$name_domen[0].'---------------------'.$soucer1.$name_domen[0].'<br>';
 	if ($this->readyplace('/')){
 	if (mkdir($name_domen[0],0777)){
-		//echo 'Создана директория '.$name_domen[0];
+		echo 'Создана директория '.$soucer1.$name_domen[0];
 		$newdir='yes';
 		}
 	elseif (chdir($name_domen[0])){ 
@@ -415,48 +421,6 @@ else {
 		return $this->init;
 	}
 	
-	public function getAll($tab){
-		$db = Singleton::getInstance('DB');
-		$res =$db->query('SELECT * from `'.$tab.'`');
-		if($res) return $res;
-		else return false;
-	}
-	public function getById($tab,$id){
-			$res = $this->db->query('SELECT * FROM `'.$tab.'` WHERE `id`=^Ni',$id);
-			if($res) return $res;
-			else return false;
-	}
-
-	public function createFullCategory($tab, $arr, $field='id',$close_field=0){
-		$ids = 1;
-		$numpage = 1;
-		$nummaket = 1;
-		$uid = 1;
-		$numpost=0;
-		$fld = $this->getallfieldtable($tab);
-		$fields = $fld['field'];
-		while(isset($fields[$numpost]) && $fields[$numpost]<>$field){
-			$numpost++;
-		}
-		$y='';
-		$NN=count($fields)-$close_field;
-		if($close_field == 0 )$NB=0;
-		else $NB = 1;
-		for ($i=$NB;$i<$NN;$i++){
-			if( $i<$NN-1)$y.="'". $arr[$i]."',";
-			elseif($close_field == 0) $y.="'". $arr[$i]."'";
-			else $y.="'". $arr[$i]."',";
-		}
-		//echo $y;
-		if($close_field == 4 && $table=='allmakets') $z="INSERT INTO $table VALUES ($arr[0],".$y."$Site->ids,$arr[10],$idmaket,$numpage);";
-		elseif($close_field == 4) $z="INSERT INTO $tab VALUES ($arr[0],".$y."$ids,$numpage,$idmaket,$uid);";
-		elseif($close_field == 3) $z="INSERT INTO $tab VALUES ($arr[0],".$y."$ids,$numaket,$numpage);";
-		elseif($close_field == 2) $z="INSERT INTO $tab VALUES ($arr[0],".$y."$ids,$numpage);";
-		elseif($close_field == 1) $z="INSERT INTO $tab VALUES ($arr[0],".$y."$ids);";
-		elseif($close_field == 0) $z="INSERT INTO $tab VALUES (".$y.");";
-		$sql=$this->db->query($z);
-	}
-
 	function getallpages($tab){
 		$db=Singleton::getInstance('DB');
 		$site=$_SERVER['HTTP_HOST'];
@@ -618,17 +582,8 @@ else return 0;
 			$this->siid=0;
 			$this->balans=0;
 		}
-		else{
-			$this->level = self::ADMIN;
-			$this->login = 'админ';
-			$this->ms = 0;
-			$this->id = 1;
-			$this->customerid = 1;
-			$this->siid=1;
-			$this->balans=10000;
-		}
 	}
-
+ 
 	function checkusersite($sid) {//находитесь ли на сайте регистрации или регистрировались ли вы на этом сайте
 		if ($sid<>0 && $this->siid == $sid && $this->isAdmin()) return true;
 		else return false;
@@ -1243,6 +1198,7 @@ function view_orderid($orderid) {
 	function logout() {
 		if($this->isGuest()) $this->guest_exit();
 		else $this->user_exit();
+		$this->level = -1;
 	}
 
 public function initbdF($domen){
@@ -1253,6 +1209,9 @@ public function initbdF($domen){
 	if ($this->domen <> "") {
 		
 	$res=$this->db->query('SELECT `uid`,`ids`,`domen`,`nmpage`, `types`, `strucs`,`appoint`,`css`,`script`,`images`,`pages`, `news`,`element`,`structure`,`desc_site` FROM `allsites` WHERE `domen` = ^Ns;', $this->domen);	
+	//$resu=$this->read_namparams('setMaketPage');
+	//$arridmen=$resu[1];
+	//if(isset($arridmen))$res->disp = $arridmen[$res->strucs];
 	if($res){
 		$ret=explode('/',$res->domen);
 		if(count($ret)>1) {
@@ -1261,7 +1220,7 @@ public function initbdF($domen){
 			}
 		return $res;	
 	}	
-	else echo 'Сайт --'.$this->domen.'-- в базе данных не найден';
+	//else echo 'Сайт --'.$this->domen.'-- в базе данных не найден';
 	}
 	return false;
 	}	
@@ -1299,13 +1258,11 @@ public function getsitesuser($uid){
 	if ($uid <> 0) { 
 		$Sites=$this->db->query('SELECT `ids`,`uid`,`domen`,`nmpage`, `types`, `strucs`,`appoint`,`css`,`script`,`images`,`pages`, `news`,`element`, `structure`, `desc_site` FROM `allsites` WHERE `uid` = ^Ni;', $uid);	
 		if($Sites){
-	if (count($Sites)>1) {
-			return $Sites;
+		if(!is_array($Sites))$ress[0]=$Sites;
+		else $ress=$Sites;	
+		if (count($ress)>0) {
+			return $ress;
 	}
-	else {
-		$sit[0]=$Sites;
-		return $sit;
-		}
 	}
 	else return false;
 	}
@@ -1314,7 +1271,8 @@ public function getsitesuser($uid){
 
 public function right_access($ds) {
 	
-	$arrdesc=explode('|',$ds);		
+	$arrdesc=explode('|',$ds);	
+	//debug($arrdesc);	
 	if($arrdesc[0]<>'') $ret['GA']=$arrdesc[0];
 	else $ret['GA']=false;
 	if($arrdesc[1]<>'') $ret['YM']=$arrdesc[1];
@@ -1322,11 +1280,9 @@ public function right_access($ds) {
 	if($arrdesc[2]=='N')$ret['PR']='http://';
 	else $ret['PR']='https://';	
 	if(!isset($arrdesc[3]))$ret['metr']=false;
-	elseif($arrdesc[3] != 'N') $ret['metr']=true;
 	else $ret['metr']=true;
-	if(isset($arrdesc[4])) $ret['access'] = $arrdesc[4];
-	else $ret['access'] = 'general'; 
-	
+	if(!isset($arrdesc[4]))$ret['access']= 'global';
+	else $ret['access']= $arrdesc[4];
 	return $ret;
 }
 
@@ -1359,14 +1315,14 @@ private function  whatisdatabase(){
 		$this->conn->close();
 	}
 	
-public function regbd($domen,$uid=1,$newsite='',$idmen=0,$typmen=0,$ippnt=0,$tarif = 1,$desc_site='',$page_file=''){
+public function regbd($domen,$uid=1,$newsite='',$idmen=1,$typmen=0,$ippnt=0,$tarif=1,$desc_site='',$page_file=''){
+	//debug($_POST);
 	$db = Singleton::getInstance('DB');
 	//$Site0=$db0->initbd($_SERVER['HTTP_HOST'],$db0);
 	//$db = Singleton::getInstancepar('DB',$Site0->host,$Site0->logad,$Site0->passwad,$Site0->bd,$Site0->port);
 	$dbname='nonchangebd';
 	$insi=$db->init_data;
-	//print_r($insi);
-	if($desc_site=='') {
+	if($desc_site === '') {
 		$desc_site = array();
 		$desc_site['cga']='';
 		$desc_site['cym']='';
@@ -1374,24 +1330,22 @@ public function regbd($domen,$uid=1,$newsite='',$idmen=0,$typmen=0,$ippnt=0,$tar
 		$desc_site['ownbd'] ='yes';
 	}
 	$desc_site['seo'] ='N';
-if($idmen == 0) $desc_site['access'] = 'general';
-else $desc_site['access'] = 'global';
+	if($idmen == 1) $desc_site['access'] = 'general';
+	else $desc_site['access'] = 'global';
 	if($desc_site['ownbd'] === 'yes' && $tarif<5)$dbname=$db->yourbd($domen);
 	else $dbname=$insi[3];
-	$descSite = $desc_site['cga'].'|'.$desc_site['cym'].'|'.$desc_site['own'].'|'.$desc_site['seo'].'|'.$desc_site['access'];
 	$resu = $this->read_namparams('setMaketPage');
 	$arrlatstr=$resu[1];
 	//$arrlatstr=array(11=>'cont', 0=>'land', 1=>'gall', 7=>'flex', 8=>'mag', 9=>'cat',6=>'mob' ,4=>'fb', 3=>'tw',5=>'qw',10=>'shop',2=>'blog',12=>'lay');
 	echo '<div class="info">Тариф: '.$tarif.'Структура сайта:'.$arrlatstr[$typmen].' Тип сайта:'.$idmen.' Назначение:'.$ippnt.' </div>';
-	if($arrlatstr[$typmen] == 'land') $pthscr = 'libs';
-	else $pthscr = 'scripts';
+	$descSite = $_POST['cga'].'|'.$_POST['cym'].'|'.$_POST['prot'].'|'.$desc_site['seo'].'|'.$desc_site['access'];
+	//debug($descSite);
 	$imgdflt='banmain.jpg;logo.png;photo.jpg';
 	if(!Utils::getsitetables($domen)) {
 		$tabl['pages']='pages';
 		$tabl['news']='news';
 		$tabl['str']='structure';
 		$tabl['elem']='elements';
-		 
 	}
 	else $tabl=Utils::getsitetables($domen);
 	$npg=$db->getscountab($tabl['pages'],'numpage', 'f');
@@ -1401,10 +1355,9 @@ else $desc_site['access'] = 'global';
 		}
 	if (isset($uid)) $this->uid=$uid;
 	
-	if(isset($_POST['adms'])) $priv['name']=$_POST['adms'];
+	$priv['name']=$_POST['adms'];
 	$priv['cfio']='Admin '.$this->domen;
-	if(isset($_POST['eml'])) $priv['em']=$_POST['eml'];
-	else $priv['em'] = $this->getEmail();
+	$priv['em']=$_POST['eml'];
 	$priv['host']=$tarif;
 	if(isset($_POST['telmain']))$priv['telmain']=$_POST['telmain'];
 	else $priv['telmain']='+79255053421';
@@ -1412,17 +1365,18 @@ else $desc_site['access'] = 'global';
 	else $priv['city']='Moscow';
 	if(isset($_POST['country']))$priv['country']=$_POST['country'];
 	else $priv['country']='Russia';
-	if(!isset($_POST['site'])) $_POST['site'] = 1;
+	if(isset($_POST['site'])) $idsite = $_POST['site'];
+	else $idsite = 1;
 // добавление для пользователя сайта в базу	
 	$db->start();
 	$res=$this->db->query('SELECT `domen` FROM `allsites` WHERE `domen` = ^Ns;', $this->domen);		
 	if (!$res) {
-		if ($uid > 1) //$this->addAdmin($priv['name'], $_POST['pass'], $priv['em']);
+		if ($uid>1) //$this->addAdmin($priv['name'], $_POST['pass'], $priv['em']);
 		$this->addManager($priv['name'], $_POST['pass'], $priv['em']);
 		
 		$res=$this->db->query('INSERT INTO `allsites` (`ids`,`uid`,`nmpage`,`domen`,`types`,`strucs`,`appoint`,`css`,`script`,`images`,	`passwad`,`logad`,`bd`,`host`,`port`,`pages`,`news`, `element`,`structure`,`desc_site`) 
 		VALUES (^Ni,^Ni,^Ns,^Ns,^Ni,^Ni,^Ni,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns,^Ns);',
-		$_POST['site'],$this->uid,'',$this->domen,$idmen,$typmen,$ippnt,'style'.$arrlatstr[$typmen],$pthscr,$imgdflt,$insi[1],$insi[0],$dbname,$insi[2],$insi[4],$tabl['pages'],$tabl['news'],$tabl['elem'],$tabl['str'],$descSite);
+		$idsite,$this->uid,'',$this->domen,$idmen,$typmen,$ippnt,'style'.$arrlatstr[$typmen],'libs',$imgdflt,$insi[1],$insi[0],$dbname,$insi[2],$insi[4],$tabl['pages'],$tabl['news'],$tabl['elem'],$tabl['str'],$descSite);
 		if($res)echo '<div class="info">Сайт '.$this->domen.' зарегистрован в '.$insi[3].'  за номером '.$_POST['site'].'</div>';
 		else 'Регистрация '.$this->domen.'  не удалась' .$_POST['site'];
 		$Site=$this->initbdF($this->domen);
@@ -1472,12 +1426,11 @@ else {
 	
 	private function prepare_start_pages($uid,$domen,$tabl,$typmen=0,$loadfiles=''){
 // добавление начальных страниц сайта пользователя
-	if($loadfiles === 'no') return;
 	$resp=$this->db->query('SELECT `numpage` FROM `'.$tabl['pages'].'` WHERE `site` = ^Ns;', $domen);
 	if (!$resp) {
 	$ip=$this->getscountab($tabl['pages'],'numpage', 't');
 	$ln=$this->getscountab('infos','','c')+1;
-	$nn[0]=array('idauthor'=>$uid,'name'=>' Иницилизация страниц 0'.$domen,'newstext'=>'Загрузка страниц на сайт '.$domen.' выполнена. ','idnews'=>$ln,'vendor'=>'service','group'=>'pages','imgnews'=>'faviconjpg.jpg','codgjsnews'=>'','hrefnew'=>$domen,'numpagat'=>($ip+1),'site'=> $this->idomen($domen));
+	$nn[0]=array('idauthor'=>$uid,'name'=>' Иницилизация страниц '.$domen,'newstext'=>'Загрузка страниц на сайт '.$domen.' выполнена. ','idnews'=>$ln,'vendor'=>'service','group'=>'pages','imgnews'=>'faviconjpg.jpg','codgjsnews'=>'','hrefnew'=>$domen,'numpagat'=>($ip+1),'site'=> $this->idomen($domen));
 	if(Utils::prepare_pages($uid,$domen,$this->getscountab($tabl['pages'],'', 'c'),$nn,Singleton::getInstanceinit('DB',1),$typmen,$loadfiles)){
 			echo '<div class="info">Стартовые страницы сайта '.$domen.' зарегистрованы </div>';
 			return true;
@@ -1492,7 +1445,6 @@ else {
 		return 	mysql_errno();
 		}	
 }
-
 	function getBalans(){
 		return $this->balans;
 		
@@ -1505,7 +1457,7 @@ else {
 			$this->balans+=$sum;
 			$subject='Пополнение баланса ';
 			$tabl['infos']='infos';
-			$lpn=$this->getscountab($tabl['infos'],'', 'c');
+			$lpn=$this->getscountab($tabl['infos'],'idnews', 'f');
 			$mes='Клиент '.$uid.' ('.$balans->balans.') пополняет баланс  на сумму '.$sum;
 			$nn[0]=array('idauthor'=>$uid,'name'=>$subject,'newstext'=>$mes,'idnews'=>($lpn+1),'vendor'=>'service','group'=>'balans','imgnews'=>'faviconjpg.jpg','codgjsnews'=>'','hrefnew'=>'','numpagat'=>0,'site'=>$balans->siid);
 			$this->db->autocommit(FALSE);
@@ -1521,7 +1473,8 @@ else {
 				if($e->getErrno() == 1062) return false;
 				else throw $e;
 			}
-		if (mysql_errno() == '') {
+			Utils::transakres($this->db);
+		/*if (mysql_errno() == '') {
 			$this->db->commit(); 
 			$this->db->autocommit(TRUE);
 			if (mysql_errno()) echo '<div class="info">ERROR commit-'.mysql_error().'</div>';
@@ -1531,7 +1484,7 @@ else {
 		else {
 			$this->db->rollback();
 			echo '<div class="info">Транзакция пополнения баланса отменена</div>';
-	}	
+	}	*/
 		}
 	else return $balans->balans;
 	}
@@ -1539,8 +1492,6 @@ else {
 	private function addUser($login, $pass, $email, $level, $activate = 0,$balans =1) {
 		$email = strtolower($email);
 		//$tabl['news']='news';
-		if(!isset($_POST['uid'])) $_POST['uid'] = 1;
-		if(!isset($_POST['site'])) $_POST['site'] = 1;
 		if($this->checkInPost($login, $email, $pass)) {
 			//echo 'CheckInPost good';
 			$hash = md5(md5($pass).md5($this->key));
@@ -1549,7 +1500,7 @@ else {
 				$this->db->query('INSERT INTO `users` (`login`, `pass`, `level`, `email`, `customerid`,`id`,`activate`,`siid`,`balans`) VALUES (^Ns, ^Ns, ^Ni, ^Ns,^Ni, ^Ni,^Ni,^Ni,^Ni);', $login, $hash, $level, $email, $cn,$_POST['uid'], $activate,$_POST['site'],$balans);
 				$this->id = $this->db->id();
 				$this->login = $login;
-				$this->email = $email;
+				
 			} catch(DBException $e) {
 				if($e->getErrno() == 1062) return false;
 				else throw $e;
@@ -1597,16 +1548,14 @@ return $res;
 }	
  
 function checkPrivate ($firm) {
-	if(isset($firm['name']) && isset($firm['em']) && isset($firm['cfio']) && isset($firm['telmain']) ){
 		if ($firm['name']<>'' && $firm['cfio']<>'' && $firm['em']<>'' && $firm['telmain'])
 	{		return true;}
 	else {return false;}
 	}
-	return false;
-	}
 	
 function addcustomer($idu,$priv){
 //echo 'form email in priv <br>';
+$email = strtolower($priv['em']);
 if($this->checkPrivate($priv)){
 	
 	if($this->add_balans(0,$idu)>0) {
@@ -1622,14 +1571,13 @@ if($this->checkPrivate($priv)){
 else {
 	$priv['name']='anonim'.$idu;
 	$priv['cfio']='no';
-	$priv['em']=$this->getEmail();
+	$priv['em']='no';
 	$priv['telmain']='no';
 	$priv['city']='';
 	$priv['country']='';
 	$priv['host']=1;
 	$hostpar='ny;ny;ny;ny;ny;ny;ny;ny;ny';
 }
-	if(isset($priv['em'])) $email = strtolower($priv['em']);
 	$find=$this->isExistCust($idu);
 	$cid=$this->getscountab('customers','customerid','f')+1;
 	if (!$find && !$this->isExistCustName($priv)){
@@ -1865,6 +1813,7 @@ if($this->checkFirm($firm)) {
 	function checkUinCode($code) {
 		session_set_cookie_params(300);
 		session_start();
+		if($this->isGuest()) ini_set(session.use_strict_mode,1);
 		if(isset($_SESSION['uin']) && $_SESSION['uin'] == $code) {
 			$ret = true;
 		} else {
@@ -1922,10 +1871,11 @@ if($this->checkFirm($firm)) {
 	public function selmen($arropt,$Pth,$chice,$img,$num,$ch='chice',$tich='Найти'){
 	echo '<span>';
 		//echo '<select class="poisk" name="'.$ch.'">';
-		Maket::divclass('poisk-'.$ch,$Pth,'','','select name="'.$ch.'"');
+		//Maket::divclass('poisk-'.$ch,$Pth,'','','select name="'.$ch.'"');
+		echo '<select  class="poisk" name="'.$ch.'">';
 		$i=0;
 		foreach($arropt as $val){
-			if ($i == $num  || $chice[$i]==$num) echo '<option selected value="'.$num.'">'.$val.'</option>';
+			if ($i == $num  || $chice[$i]===$num) echo '<option selected value="'.$num.'">'.$val.'</option>';
 			else echo '<option value="'.$chice[$i].'">'.$val.'</option>';
 		$i++;
 		}
@@ -1935,7 +1885,7 @@ if($this->checkFirm($firm)) {
 		$i++;
 		}*/
 	echo '</select>';	
-	if(file_exists($img)) echo '</select></span><span><input title="'.$tich.'" class="poisk-img" name="'.$ch.'" value="'.$ch.'" type="image" src="'.$img.'"/></span>';
+	if(file_exists($img)) echo '</span><span><input title="'.$tich.'" class="poisk-img" name="'.$ch.'" value="'.$ch.'" type="image" src="'.$img.'"/></span>';
 	elseif($img<>'') echo '<span><input class="poisk" title="'.$tich.'" type="submit" value="'.$img.'"></span>';	
 	return $ch;
 	}
@@ -2255,10 +2205,10 @@ if(isset($_POST['chice'])){
 		$ownerdata='';
 		//print_r($arr['owner']);
 		//print_r($Pth['adm']);
-		if ($arr['owner']->admin != '' && isset($Pth['adm']))	{
+		if (isset($arr['owner']) && isset($Pth['adm']))	{
 		//Вывод регистрационных данных пользователя
 		$ownerdata.='<span>'.$arr['owner']->name.'</span>'.$str;
-		if (isset($arr['owner']->telmain) && isset($arr['owner']->email)) {
+		if ($arr['owner']->telmain <> "" && $arr['owner']->email <> "") {
 		if ($arr['owner']->telmain<>'no' && $arr['owner']->telmain<>'') $ownerdata.=$str.'<span>'.$arr['owner']->telmain.'</span>';
 		if ($this->isValidEmail($arr['owner']->email )) $ownerdata.=$str.'<span>'.$arr['owner']->email .'</span>';  
 		//
@@ -2443,41 +2393,68 @@ if(isset($_POST['chice'])){
 			elseif($this->getMs() === USER::CONTENTMANAGER) $you='Контент менеджер';
 			elseif($this->getMs() === USER::ANALITICMANAGER) $you='Аналитик менеджер';
 			elseif($this->getMs() === USER::GENERALMANAGER) $you='Главный менеджер';
+			$you .= ' ' .$this->getLogin();
 			}
 		elseif($lev>2) {
-		 	$you='Клиент';
+		 	$you='Клиент '.$this->getLogin();
 			}
 		elseif($lev>1) {
-		 	$you='Пользователь';
+		 	$you='Пользователь '.$this->getLogin();
 			}	
 		elseif($lev==1) {
-		 	$you='Посетитель';
+		 	$you='Посетитель' ;
 			}		
 		else $you='Гость';	
 	if($inlev)return $you.'('.$lev.')';
 	else return $you;
 	}
 	
+	function stringusermen($clas='',$Pth='',$ngust=0,$Site,$numpage=''){
+		if (isset($Pth['adm']['np']))$numpage=$Pth['adm']['np'];
+		//elseif($numpage<>'') $numpage=$_GET['np'];
+		$href=$Pth['prot'].$Site->domen;
+		if($this->getLevelnew()>=5 && !isset($_GET['editp']) ) {
+			if(!isset($_GET['other'])) {
+			echo '<div class="serv">';
+			if($Pth<>'' && $numpage !='')echo '<span><a href="'.$href.'/?editp=ok&np='.$numpage.'"> Изменить ('.$numpage.') </a>';
+			echo '<a href="'.$href.'/?editp=new"> Добавить </a></span>';
+			echo '<span><a href="'.$href.'/settings/?other"> Профиль </a>';
+				}
+			}
+		elseif($this->getLevelnew()>3) {
+			echo '<span><a href="'.$href.'/settings/?other">Настройки меджера</a></span>';
+			}
+		elseif($this->getLevelnew()>2) {
+			echo '<span><a href="'.$href.'/settings/?other">Настройки клиента</a></span>';
+			}
+		else Maket::spanclass($this->whoareyouhere($ngust),$Pth,'user');	
+		
+		echo '<span class="user" ><a href="'.$href.'"> Главная </a></span>';
+		if($this->getLevelnew()==0)echo '<span class="user" ><a href="'.$href.'/auth/">Войти</a></span>';
+		else echo '<span class="user" ><a href="'.$href.'/auth/?logout">Выйти </a></span>';
+		echo '</div>';	
+		}
+
 	
-	function stringusermen($clas='',$Pth='',$ngust='',$localpth='',$numpage=''){
+	function stringusermenOld($clas='',$Pth='',$ngust='',$localpth='',$numpage=''){
 		if($Pth<>'')if (isset($Pth['adm']['np']))$numpage=$Pth['adm']['np'];
 		//elseif($numpage<>'') $numpage=$_GET['np'];
 		
 		if($this->getLevelnew()>=5 && !isset($_GET['editp']) ) {
 			if(!isset($_GET['other'])) {
 			echo '<div class="serv">';
-			if($Pth<>'')echo '<span><a href="/?editp=ok&np='.$numpage.'"> Изменить ('.$numpage.') </a>';
+			if($Pth<>'' && $numpage !='')echo '<span><a href="/?editp=ok&np='.$numpage.'"> Изменить ('.$numpage.') </a>';
 			echo '<a href="/?editp=new"> Добавить </a></span>';
 			echo '<span><a href="../settings/?other"> Профиль </a>';
 				}
 			}
 		elseif($this->getLevelnew()>3) {
-			echo '<span><a href="../settings/?other">Настройки меджера</a></span>';
+			echo '<span><a href="../settings/?other">Настройки меджера '.$this->whoareyouhere().'</a></span>';
 			}
 		elseif($this->getLevelnew()>2) {
-			echo '<span><a href="../settings/?other">Настройки клиента</a></span>';
+			echo '<span><a href="../settings/?other">Настройки клиента '.$this->whoareyouhere().'</a></span>';
 			}
-		else Maket::spanclass($this->whoareyouhere($ngust),$Pth,'user');	
+		else Maket::spanclass($this->whoareyouhere(),$Pth,'user');	
 		
 		echo '<span class="user" ><a href="/"> Главная </a></span>';
 		if($this->getLevelnew()==0)echo '<span class="user" ><a href="'.$localpth.'/auth/">Войти</a></span>';
@@ -2546,5 +2523,4 @@ if(isset($_POST['chice'])){
 		return $return;
 	}
 }
-//12/07/2020
 ?>

@@ -1,15 +1,15 @@
 <?php
-//print_r($arrconf['szimggrp']); 
+//print_r($arrconf); 
 
 $contmak = array();
 $contmak['clas']=$clas;
-$contmak['nump']=$allpage;
+$contmak['nump']=1;
 $contmak['tabl']=$tabl;
 $contmak['descr']='description';
 $contmak['titles']='titles';
 $contmak['keywds']='keyword1>keyword2';
-$contmak['idmen'][0]=$disp;
-$contmak['typmen']=$distype;
+$contmak['idmen'][0]= 'flex';
+$contmak['typmen'] =explode(';', 'wr;bl;mn;bt;hd;ft;fb;sw;fo;ga;sr;sl;sc;ac');
 $contmak['namep'][0] = $Bannrpic;;
 $contmak['namep'][1] = $Logopic;
 $contmak['max']['imgs']=$arrconf['page']['szimggrp']*$arrconf['page']['szimg'];
@@ -20,11 +20,12 @@ $contmak['max']['buttimg'] = $arrconf['page']['szimgbutgrp']*$arrconf['page']['s
 $contmak['max']['cont'] = $arrconf['page']['szcontgrp']*$arrconf['page']['szconts'];
 $contmak['max']['loz'] = $arrconf['page']['szlozs'];
 $contmak['max']['foot'] = $arrconf['page']['szfoots'];
-
+$contmak['scripts']= '';
+$contmak['style']= '';
 for($i=2;$i<$arrconf['page']['sznames']+2;$i++) $contmak['namep'][] = 'Name_Page'.$i;
 for($i=0;$i<$contmak['max']['loz'];$i++){
 	$contmak['loz'][] = 'Your_lozung'.$i;
-	$contmak['lozhref'][] = $startpage;
+	$contmak['lozhref'][] = 1;
 }
 $string['cont']=20;
 $string['imgt']=10;
@@ -36,27 +37,27 @@ for($i=0;$i<$string['cont'];$i++){
 }
 for($i=0;$i<$contmak['max']['cont'] ;$i++){
 	$contmak['cont'][] = $str;
-	$contmak['conthref'][] = $startpage;
+	$contmak['conthref'][] = 1;
 }
 for($i=0;$i<$contmak['max']['butt'];$i++){
 	$contmak['butt'][] = 'Button'.$i;
-	$contmak['butthref'][] = $startpage;
+	$contmak['butthref'][] = 1;
 }
 for($i=0;$i<$contmak['max']['list'];$i++){
 	$contmak['list'][] = 'Menu item'.$i;
-	$contmak['listhref'][] = $startpage;
+	$contmak['listhref'][] = 1;
 }
 for($i=0;$i<$contmak['max']['imgs'];$i++){
-	if($i < 10)$contmak['imgs'][] =$clas['img']. $i.'.jpg';
-	elseif($i <= 20) $contmak['imgs'][] = $clas['img'].(20-$i).'.jpg';
-	elseif($i <= 30) $contmak['imgs'][] = $clas['img'].(30-$i).'.jpg';
+	if($i < 10)$contmak['imgs'][] = $i.'.jpg';
+	elseif($i < 19) $contmak['imgs'][] = (19-$i).'.jpg';
+	elseif($i <= 29) $contmak['imgs'][] = (29-$i).'.jpg';
 	else break;
 
 }
 for($i=0;$i<$contmak['max']['buttimg'];$i++){
-	if($i < 10)$contmak['buttimgs'][] = $clas['img'].$i.'.jpg';
-	elseif($i <= 20) $contmak['buttimg'][] = $clas['img'].(20-$i).'.jpg';
-	elseif($i <= 30) $contmak['buttimg'][] = $clas['img'].(30-$i).'.jpg';
+	if($i < 10)$contmak['buttimgs'][] = $i.'.jpg';
+	elseif($i <= 19) $contmak['buttimg'][] = (19-$i).'.jpg';
+	elseif($i <= 29) $contmak['buttimg'][] = (29-$i).'.jpg';
 	else break;
 }
 $str='';
@@ -67,9 +68,10 @@ for($i=0;$i<$string['imgt'];$i++){
 }
 for($i=0;$i<$contmak['max']['imgt'];$i++){
 	$contmak['imgt'][] = $str;
-	$contmak['imgthref'][] = $startpage;
+	$contmak['imgthref'][] = 1;
 }
 for($i=0;$i<$arrconf['page']['szfoots'];$i++){
 	$contmak['foot'][] = 'Footer'.$i;
-	$contmak['foothref'][] = $startpage;
+	$contmak['foothref'][] = 1;
 }
+//debug($contmak['max']['imgs']);

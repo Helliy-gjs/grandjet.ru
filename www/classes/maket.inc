@@ -2527,7 +2527,7 @@ else Maket::closediv(1);
 }
 
 static function showmodules($main_clas,$clas,$Pth,$arr_modul,$typmen,$nmod,$container=''){
-	//print_r($nmod);
+	print_r($nmod);
 	if(isset($Pth[$main_clas]['numpar']['Grid']))$ngrid=$Pth[$main_clas]['numpar']['Grid'];
 	else $ngrid = count($clas);
 		Maket::divclass($main_clas,$Pth,'',' '.$typmen);

@@ -68,7 +68,7 @@ else {
 		$MP[$key]=$val.'-'.$arrmain['idmen'][0];
 		
 	}
-	//print_r($Maks_Page);
+	print_r($Maks_Page);
 	
 	if(isset($Pth[$MP[0]][5])){
 		if($Pth[$MP[0]][5] > 0) $prefix=' grid';

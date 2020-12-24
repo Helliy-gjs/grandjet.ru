@@ -80,6 +80,16 @@ if(strstr(trim($_SERVER['REQUEST_URI'],'/'),'api') ){
 }
 //	
 $db=Utils::loadbdsite($_SERVER['HTTP_HOST']);
+$ew = Singleton::getInstance('elementsW');
+$sw = Singleton::getInstance('StructureW');
+$user = Singleton::getInstance('User');
+$Site=$user->initbdF($_SERVER['HTTP_HOST']);
+$rest=$user->read_namparams('setMaketPage');
+$arridmen=$rest[1];
+if(!isset($Pth)) $Pth = array();
+//debug($arridmen);
+//echo $arridmen[$Site->strucs];
+$pgTypeExist = intval($db->getscountab($Site->pages,'numpage', 'f','idmenu',$arridmen[$Site->strucs]));
 //else  $db = Singleton::getInstance('DB',1);
 if(file_exists(CLASSES.'/Begin.inc')) include(CLASSES.'/Begin.inc');
 //Расчет рабочих параметров сайта

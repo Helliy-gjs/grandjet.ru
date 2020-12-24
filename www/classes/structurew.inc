@@ -3276,8 +3276,9 @@ public function getPagetable($numpage,$table,$Site){
 		}
 		
 		else {
-			
-			$return['pages'][] = array('numpage' => $numpage, 'namep' => $Site->images.'|new_page','lozungp' => ';;;|;;;', 'keywords' => 'key1>key2>key3;title_page;description_page', 'buttons' => ';;;|;;;', 'hrefp' => '','typemenu' =>' wr;bl;mn;bt;hd;ft;fb;sw;fo;ga;sr;sl;sc;ac', 'hrefscripts' => '', 'hrefstyle' => '','title' => '', 'content' => ';;;|;;;', 'levelmenu' => ';;;;;','idmenu' => $Site->types, 'hrefimage' => ';;;;;', 'list' =>';;;;;','list_href' => ';;;;;',
+			$rest=$this->read_namparams('setMaketPage',$numpage);
+			$arridmen=$rest[1];
+			$return['pages'][] = array('numpage' => $numpage, 'namep' => $Site->images.'|new_page','lozungp' => ';;;|;;;', 'keywords' => 'key1>key2>key3;title_page;description_page', 'buttons' => ';;;|;;;', 'hrefp' => '','typemenu' =>' nwr;bl;mn;bt;hd;ft;fb;sw;fo;ga;sr;sl;sc;ac', 'hrefscripts' => '', 'hrefstyle' => '','title' => '', 'content' => ';;;|;;;', 'levelmenu' => ';;;;;','idmenu' => $arridmen[$Site->strucs], 'hrefimage' => ';;;;;', 'list' =>';;;;;','list_href' => ';;;;;',
 			'butthref' => ';;;|;;;', 'buttimg' => ';;;;;', 'imgtext' => ';;;|;;;', 'idnews' => '0', 'site' => '','idauthor' => 0,'configpage' =>'');		
 		}
 		//debug($return); 

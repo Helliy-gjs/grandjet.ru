@@ -328,9 +328,13 @@ else echo '<form><input href="https://'.$work_domen.'" type="submit" value="Пе
 }
 elseif($scr=='DBinst.php' && $cont=='Yes') {
 	//Если вход прямо из браузера
-	if ($ok2==0 && $work_domen='deltar.ru') $passw='tardeladmadmtard';
+	if ($ok2==0 && $your_domen == 'deltar.ru') $passw='tardeladmadmtard';
 	else $passw='';
-
+	$desc['cga']='';
+	$desc['cym']='';
+	$desc['own']='';
+	$desc['page']='pages.csv';
+	$desc['ownbd']='yes';
 //Форма передает  управление скрипту регистрации сайта и его администратора
 	echo '<form  action="'.$scr.'" method="post" enctype="multipart/form-data">';
 	echo '<table class="inp" border="0"><tr><td colspan="2"  with="350">ШАГ: 1. Представте администратора сайта...(*обязательные поля)'.$your_domen.'</td>';

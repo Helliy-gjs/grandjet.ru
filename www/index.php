@@ -66,7 +66,7 @@ if(file_exists(CLASSES.'Begin.inc')) include(CLASSES.'Begin.inc');
 
 $type_access = 'general';
 
-if(file_exists(CLASSES.'Defmass.inc') && isset($numpage) && $type_access != 'general') include(CLASSES.'Defmass.inc');
+if(file_exists(CLASSES.'Defmass2019.inc') && isset($numpage) && $type_access != 'general') include(CLASSES.'Defmass2019.inc');
 else {
 	if(file_exists(CLASSES.'Defshort.inc')) include(CLASSES.'Defshort.inc');
 }

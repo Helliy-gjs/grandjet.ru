@@ -14,7 +14,7 @@ if(isset($Scrpt_page)) {
 		foreach($Scrpt_page as $value){
 			if($value != '' && file_exists('./'.$Site->script.'/'.$value.'.js')) echo '<script src="'.'/'.$Site->script.'/'.$value.'.js" type="text/javascript"></script>';
 			elseif($value != '' && file_exists($pathheader.'/js/'.$value.'.js')) echo '<script src="'.'js/'.$value.'.js" type="text/javascript"></script>';
-			//else echo 'не загружен '.$pathheader.'/'.$Site->script.'/'.$value.'.js';
+			else echo 'не загружен '.$pathheader.'/'.$Site->script.'/'.$value.'.js';
 		}
 	}
 	else {

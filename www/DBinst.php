@@ -1,32 +1,38 @@
 <?php
-ini_set('display_errors',0);
+ini_set('display_errors',1);
 error_reporting(E_ALL & ~E_NOTICE);
 global $pathToClasses;
 global $pathToClasses,$pathheader, $spisok,$vend, $tabl, $tablepages, $tablenews, $numrecbd,$loz,$hh;
 global $vendors,$PageM,$namenews,$novost,$clas,$hd,$type_menu,$cid, $sid;
-$pathToClasses = '/classes/';
-$pathheader='.';
-include_once ($pathheader.$pathToClasses.'autoload.inc');
-$user = Singleton::getInstance('User');
+//$pathToClasses = '/classes/';
+//$pathheader='.';
+//include_once ($pathheader.$pathToClasses.'autoload.inc');
+//$user = Singleton::getInstance('User');
 
-if (!preg_match("#^[a-z0-9]+$#i", $_POST['pass'])){
-  header('Location: http://'.$_SERVER['HTTP_HOST'].'?rep=p');
-  exit();
-}
-if (!preg_match("#^[a-z0-9]+$#i", $_POST['passw'])){
-  header('Location: http://'.$_SERVER['HTTP_HOST'].'?rep=p');
-  exit();
-}
+//die();
+if($_POST['pass'] ==  $_POST['passw']){
+	print_r($_POST);
+	if (!preg_match("#^[a-z0-9]+$#i", $_POST['pass'])){
+	  header('Location: http://'.$_SERVER['HTTP_HOST'].'?rep=p');
+	  exit();
+	}
+	if (!preg_match("#^[a-z0-9]+$#i", $_POST['passw'])){
+	  header('Location: http://'.$_SERVER['HTTP_HOST'].'?rep=p');
+	  exit();
+	}
 
-if($_POST['pass'] != $_POST['passw']) {
-	header('Location: http://'.$_SERVER['HTTP_HOST'].'?rep=r');
-	exit();
+	if($_POST['pass'] != $_POST['passw']) {
+		header('Location: http://'.$_SERVER['HTTP_HOST'].'?rep=r');
+		exit();
+	}
 }
 $pathToClasses = '/classes/';
 $pathheader=$_SERVER["DOCUMENT_ROOT"];
 define('CLASSES', $pathheader.$pathToClasses);
-$arrdom=explode('deltar.ru',$_SERVER['HTTP_HOST']);
-if($arrdom[1] ===  'deltar.ru')include_once($pathheader.$arrdom[0].'/'.$pathToClasses.'autoload.inc');
+if(strstr($_SERVER['HTTP_HOST'],'deltar.ru')) {
+	$arrdom=explode('deltar.ru',$_SERVER['HTTP_HOST']);
+	if($arrdom[1] ===  'deltar.ru')include_once($pathheader.$arrdom[0].'/'.$pathToClasses.'autoload.inc');
+}
 else include_once(CLASSES.'autoload.inc');
 $db=Utils::loadbdsite($_SERVER['HTTP_HOST']);
 if (isset($_POST['adms']) && isset($_POST['pass']) && isset($_POST['eml']) && isset($_POST['site'])) {
@@ -90,7 +96,7 @@ $user = Singleton::getInstance('User');
 $user->check();
 //регистрируем 	в таблице Allsites
 $id_exist=$user->checkLoginEmail($_POST['adms'], $_POST['eml']);//Администратор системы теперь
-if (!$user->initbdF($_SERVER['HTTP_HOST'])) {
+if (!$db->initbdF($_SERVER['HTTP_HOST'])) {
 	echo '<div class="hidno"> регистрируем...</div>';
 	//инициализация и авторизация сайта user
 	if (strstr($_SERVER['HTTP_HOST'],'www')) {
@@ -101,10 +107,9 @@ if (!$user->initbdF($_SERVER['HTTP_HOST'])) {
 		//print_r($_POST);
 		if($user->addAdmin($_POST['adms'], $_POST['pass'],$_POST['eml'])){
 			$control_summa=$user->regbd($_SERVER['HTTP_HOST'],1,'',12,7,3,8,$desc,$page_file);
-			if($control_summa>0) echo '<br>Сайт подключен за номером '.$control_summa.'<br>';
-			
+			if($control_summa>0) echo '<br>Сайт подключен за номером '.$control_summa.'<br>';		
 		}
-		}
+	}
 	else exit('Что-то пошло не так. Возможно вы не подключили хостинг или не уникальные данные Администратора.');
 	// инициализация и авторизация таблицы user
 	//$user->addAdmin($_POST['adms'], $_POST['pass'], $_POST['eml']);

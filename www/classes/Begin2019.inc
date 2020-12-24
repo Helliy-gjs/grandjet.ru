@@ -39,39 +39,27 @@ $choice_vendors=array();
 $spisok=array();
 $ff=200; 
 //define('HTTP_FOLDER',    dirname($_SERVER['SCRIPT_NAME']));
-define('HOST_SCRIPT',     dirname($_SERVER['SCRIPT_FILENAME']));
-define('HOST_ROOT',     '/bhome/part2/01/ritondel/'.$_SERVER['HTTP_HOST'].'/www/');
-define('HOST_ARCH',     '/bhome/part2/01/ritondel/archive');
-//echo HTTP_FOLDER;
+	
 
-$ew = Singleton::getInstance('elementsW');
-$sw = Singleton::getInstance('StructureW');
-$user = Singleton::getInstance('User');
-
-if($_SERVER['HTTP_HOST']==='localhost'){
-	$_SERVER['HTTP_HOST']='www.grandjetstudio.com';
-	$localdomen='localhost';
-}
-else $localdomen=$db->namecurbd();
+//echo $type_access;
 
 if (strstr($_SERVER['HTTP_HOST'],'www')) {
 			$_SERVER['HTTP_HOST']=substr($_SERVER['HTTP_HOST'],4);
 		}
-
-if($user->isGuest()) ini_set(session.use_strict_mode,1);
-if (strstr($_SERVER['HTTP_HOST'],'www')) {
-			$_SERVER['HTTP_HOST']=substr($_SERVER['HTTP_HOST'],4);
-		}
-if (!$user->initbdF($_SERVER['HTTP_HOST'])) {
+if (!$db->initbdF($_SERVER['HTTP_HOST'])) {
 	echo 'сайт не зарегистрован <br>';
 //регистрируем 	в таблице allsites
 	
 }
 else {
-	$Site=$user->initbdF($_SERVER['HTTP_HOST']);
+	if(!isset($ew))$ew = Singleton::getInstance('elementsW');
+	if(!isset($sw))$sw = Singleton::getInstance('StructureW');
+	if(!isset($user))$user = Singleton::getInstance('User');
+	if(!isset($Site)) $Site=$user->initbdF($_SERVER['HTTP_HOST']);
 	if($_SERVER['HTTP_HOST']==='localhost')$Site->domen='localhost/www/'.$Site->domen;
 	$tabl=Utils::getsitetables($Site->domen,$db);
 	$clas['tabl'] = $tabl;
+	$pgExist = $db->getscountab($tabl['pages'],'','c');
 	$vendors=$ew->getvendor($tabl['elem']);
 	$levelU=$user->getLevelnew();//данный параметр определяет абсолютные права пользователя
 	$pathscrypt='tree_menu.js';
@@ -81,26 +69,44 @@ else {
 	elseif($Site && $user->getLevel()<=4 && $user->getscountab('elemap','id','f')>0) $startpage=$user->getlookforfields($_SERVER['HTTP_HOST'],'main_gra_'.$Site->domen,$Site->pages);
 	elseif(!$Site) exit('Данный сайт '.$_SERVER['HTTP_HOST'].' не авторизован в системе '.$insi[3]);
 	else exit('У вас нет права доступа к сайту '.$insi[3]);
+	if(isset($_GET['nostart'])) unset($startpage);
 	//проверяем статус пользователя по отношению к системе
 	include($pathheader.$pathToClasses.'status.inc');
+	//if($user->isGuest()) ini_set(session.use_strict_mode,1);
 }		
-if($user->getLevel() < 0 && $startpage  && !$IsLocal ) {
-	header('Location: https://'.$_SERVER['HTTP_HOST'].'/auth/');
-	exit();
-}
+//if($user->getLevelnew() ==  0 && !$startpage) {
+	//echo '<h3>Вы вышли <a href="./auth/"> Войти </a></h3>';
+	//header('Location: https://'.$_SERVER['HTTP_HOST'].'/auth/');
+	//exit();
+//}
 //определение стартовой стрвницы сайта
 
+$arrsite=Maket::readysitearr($Site,$numpage,$clas);
+if(isset($arrmain['idmen']))$disp = trim($arrmain['idmen'][0]);
+else $disp=$Site->disp;
+$rest=$user->read_namparams('setTypesPage');
+$arridmen=$rest[1];
+if(isset($arrmain['typmen']))$distype = $arrmain['typmen'];
+else $distype=$rest[1];
 //режим работы при отсутствии стартовой страницы
-if(!$startpage && file_exists($pathheader.$pathToClasses.'start.inc')){
-	$allpage=$user->getlookforfields($_SERVER['HTTP_HOST'],'main_gra_all',$Site->pages);
-	$numpage = $allpage;
-	$PageM= new Page($numpage,$tabl,$uid);
-	
-	$arrconf=Utils::getConfig(0, $PageM->MainAr['configpage']);
+
+if(!isset($startpage)){
+	echo '<h3><a href="./auth/"> Войти </a></h3>';
+	//$allpage=$user->getlookforfields($_SERVER['HTTP_HOST'],'main_gra_all',$Site->pages);
+	//$numpage = $allpage;
+	//$PageM= new Page($numpage,$tabl,$uid);
+	if(isset($_POST['confp']))$conf=$_POST['confp'];
+	else $conf = 1;
+	$arrconf['page']=Utils::getConfig($conf);
 	include($pathheader.$pathToClasses.'fish.inc');
+	//debug($contmak);
 	if(isset($contmak))include($pathheader.$pathToClasses.'start.inc');
 	$arrmain=$contmak;
-	//exit('------------------------ pages absent');
+	$numpage = 1;
+	$startpage = $numpage;
+	//exit('------------------------ start pages absent');
+	//$user-> stringusermen('','',0,$Site);
+	
 }
 else {
 	if(isset($_GET['np']))	if($_GET['np']==='' && !isset($_POST['chice']))$_GET['np']=$startpage;
@@ -173,22 +179,12 @@ else {
 		//print_r($arrconf);
 		
 		$arrmain=Page::readypagearr($PageM->MainAr,$clas,$linkpages,$Owner_site,$arrconf['page'],$tabl);
-		//foreach($arrmain['max'] as $key=>$val){
-			//if($arrconf['curpage'][$key] != '')$arnum[$key] = Maket::rasklad(count($arrmain[$key])/$arrconf['curpage'][$key],$arrconf['curpage'][$key]);
-		//}
-		//print_r($arnum);
-		//print_r($arrmain['butt']);
-		//print_r($arrconf['page']);
+		$arrmain['photoProf'] = $photoProf;
+		//debug($arrmain['photoProf']);
 	}
 
 }
-$arrsite=Maket::readysitearr($Site,$numpage,$clas);
-if(isset($arrmain['idmen']))$disp = trim($arrmain['idmen'][0]);
-else $disp='flex';
-$rest=$user->read_namparams('setTypesPage');
-$arridmen=$rest[1];
-if(isset($arrmain['typmen']))$distype = $arrmain['typmen'];
-else $distype=$rest[1];
+
 //режим работы при наличии стартовой страницы
 //if($startpage)$PageS= new Page($startpage,$tabl);
 
@@ -203,7 +199,11 @@ else $distype=$rest[1];
 //Далее формируются данные страницы в виде единного массива
 //проверка на составную страницу, если да пересчитываем данные страницы по магическому алгоритму 
 //определение переменных, значение которых отображается на странице
-
+if(isset($control_mode) && $mode_edit){
+	echo '<div class="info">';
+	include($pathheader.$pathToClasses.'repaire.inc');
+	echo '</div>';
+}
 
 
 //Загрузка процедур интернет магазина, при наличии дистрибутива и каталог товаров	
@@ -221,7 +221,7 @@ else $isShop=false;
 $isShop=true;
 
 //if($mode_edit)print_r($arrmain);
-
+//debug($arrmain);
 
 
 ?>

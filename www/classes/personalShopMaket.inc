@@ -1,19 +1,13 @@
 <?php
-//echo '-> запись данных в базу';
-//debug($clasShop);
+
 //! Выгрузка персональных данных макета сайта в базу данных	
-//die('i am here');
+
 //Загрузка формы
 
 //Запись полей формы
-$uid = 1;
 $maket_Form = array();
-
 //Запись макета в базу данных
 $Maket_Properties = maket::setClassesMaket($clasShop);
-$maket = 'shop-1';
-//debug($Maket_Properties);
-//show::pauza('i am here '.$numpage);
 //$Maket_length = array(1,count($clasShop['main']),count($clasShop['header']),count($clasShop['navmenu'])
 //,count($clasShop['cat']),count($clasShop['hover']),count($clasShop['search']),count($clasShop['footer']));
 //$Maket_Properties =','.maderec($clasShop['main'],1,',').maderec($clasShop['header'],1,',').maderec($clasShop['navmenu'],1,',')
@@ -26,12 +20,12 @@ $maket = 'shop-1';
 // Запись окружения в базу данных
 
 //Окружение
-$Style_pages = array('style','main','homepage','footer');
-$Scrpt_page = array('wNumb.min','nouislider','swiper','script.min');
+$Style_pages = array('style1','main1','homepage1','footer1');
+$Scrpt_page = array('swiper','script.min','restapi');
 $scrips = '';
 $maket_Form = '|';
-if($numpage=1)Maket::addnewGlbMaket($idmaket+1,$maket ,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips);
-else Maket::addnewGlbMaket($idmaket + 1,$disp.'-'.$numpage,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips); 
+if($numpage == 0)Maket::addnewGlbMaket($idmaket,'shop-'.($numpage+1),1,1,$db,$Maket_Properties,$maket_Form,$scrips);
+else Maket::addnewGlbMaket($idmaket,$disp,$numpage,$Site->ids,$db,$Maket_Properties,$maket_Form,$scrips); 
 //!Преобразование контента страницы в массивы для записи в базу данных
 //каталог брендов таблица brends
 $arrbrends['name'] = array('Adidas','Nike','Puma','Reebok','UNDER ARMOUR','NEW BALANCE','FILA','CONVERSE');
@@ -45,7 +39,7 @@ $arrbrends['desc'] = array('немецкая транснациональная 
 'более известная как New Balance, американский производитель спортивной одежды, базирующийся в Брайтоне, одном из районов Бостона, штат Массачуссетс, США',
 'южнокорейская компания — производитель и поставщик спортивной одежды, обуви и спортивных аксессуаров.',
 'американская компания, производящая обувь с начала XX века и наиболее известная своими кедами Chuck Taylor All-Star. Контролируется компанией');
-//$number_value_tab = 0;
+$number_value_tab = 0;
 $close_field = 0;
 $table = 'brends';
 $arrfields=$sw->getallfieldtable($table);
@@ -57,14 +51,12 @@ foreach($arrbrends['name'] as $key=>$val){
     $arrbr[2] = $arrbrends['alias'][$key];
     $arrbr[3] = $arrbrends['img'][$key];
     $arrbr[4] = $arrbrends['desc'][$key];
-    $arrbr[5] = $numpage;
-    $arrbr[6] = $Site->ids; 	
     $db->gjsapi($Pth,$table,$arrbr,$fields);
 }
 
 //популярные товары
 $number_value_tab = $user->getscountab($Site->element,'id', 'c');
-//if($number_value_tab == 0){
+if($number_value_tab == 0){
     $ts=date('U');
     $now=getdate($ts);
     $tt=$now['year'].'-'.$now['mon'].'-'.$now['mday'];
@@ -76,11 +68,11 @@ $number_value_tab = $user->getscountab($Site->element,'id', 'c');
     $field = 'id';
     foreach($priceGalerySlider as $key=>$val){
         $arrel[0] = $key;
-        $arrel[1] = 'codeGJS'.$key;
+        $arrel[1] = $key * 1000;
         $arrel[2] = maket::part_texts($titleGalerySlider[$key])[0].'='.maket::part_texts($titleGalerySlider[$key])[1];
-        $arrel[3] = $imgGalerySlider[1][$key].'|'.maket::part_texts($titleGalerySlider[$key])[1].'|'.maket::part_texts($titleGalerySlider[$key])[2].'|'.$spisParams;
+        $arrel[3] = $imgGalerySlider[1][$key].'|'.maket::part_texts($titleGalerySlider[$key])[1].'|'.maket::part_texts($titleGalerySlider[$key])[2].'|'.$spisParams.'|'.rand(1,12);
         $arrel[4] = 'art'.$key;
-        $arrel[5] = 'vendor';
+        $arrel[5] = 'vendor'.$key;
         $arrel[6] = $val;
         $arrel[7] = '1';
         $arrel[8] = '1';
@@ -91,10 +83,10 @@ $number_value_tab = $user->getscountab($Site->element,'id', 'c');
         $arrel[13] = $uid;
         $db->gjsapi($Pth,$table,$arrel,$fields);
     }
-//}
+}
 //каталог товаров
 $number_value_tab = $user->getscountab($Site->structure,'id', 'c');
-//if($number_value_tab == 0){
+if($number_value_tab == 0){
     $close_field = 0;
     $table = $Site->structure;
     $arrfields=$sw->getallfieldtable($table);
@@ -132,11 +124,11 @@ $number_value_tab = $user->getscountab($Site->structure,'id', 'c');
             $db->gjsapi($Pth,$table,$arrsub,$fields);
             }
         }    
-  //  }
+    }
     
 //новости и отзывы
 $number_value_tab = $user->getscountab($Site->news,'idnews', 'c');
-//if($number_value_tab == 0){
+if($number_value_tab == 0){
     $close_field = 0;
     $table = $Site->news;
     $arrfields=$sw->getallfieldtable($table);
@@ -172,10 +164,10 @@ $number_value_tab = $user->getscountab($Site->news,'idnews', 'c');
         $arrreviews[11] = $Site->ids;
         $db->gjsapi($Pth,$table,$arrreviews,$fields,'new',$field);
     }
-//}
+}
 //таблица pages
 $number_value_tab = $user->getscountab($Site->pages,'numpage', 'c');
-//if($number_value_tab == 0){
+if($number_value_tab == 0){
     $arrcont='';$tt='|';
     foreach($ContText1 as $k=>$val) {
         $arrcont.=$val.';';
@@ -187,7 +179,7 @@ $number_value_tab = $user->getscountab($Site->pages,'numpage', 'c');
     }
     if($startpage) $link_pages=$startpage.';'.$startpage.';'.$startpage.';'.$startpage.';'.$startpage;
     else  $link_pages = ';;;;';
-    $array[0]= $number_value_tab + 1;
+    $array[0]= 1;
     $array[1]= '|'.$mainLoz.'|'.$ContTextLabel.'|';
     $array[2] = maderec($arrloz);
     $array[3] = 'keywords1>keywords2>keywords3;title_page;description_page';
@@ -214,5 +206,5 @@ $number_value_tab = $user->getscountab($Site->pages,'numpage', 'c');
 
     //!Запись в базу данных	
     $db->insert_tab($Pth,'pages',$array);
-//}
+}
 ?>    

@@ -46,8 +46,14 @@ function initbdF($domen,$np,$Pth, $mode=false){
 	if ($this->sitename <> '') {
 		//if($Pth['adm']['uid']==1)	$Pth['adm']['idm']=1;
 	$res=$this->db->query('SELECT `uid`,`ids`,`domen`,`nmpage`, `types`, `strucs`,`appoint`,`css`,`script`,`images`,`pages`, `news`,`element`,`structure`,`desc_site` FROM `allsites` WHERE `domen` = ^Ns;', $this->sitename);	
-	$res1['css']=$this->db->query('SELECT * FROM `scripts` WHERE `ids`=^Ni AND `idm`=^Ni AND `type`=^Ns;',intval($Pth['adm']['ids']),intval($Pth['adm']['idm']),'css');
-	$res1['js']=$this->db->query('SELECT * FROM `scripts` WHERE `ids`=^Ni AND `idm`=^Ni AND `type`=^Ns;',intval($Pth['adm']['ids']),intval($Pth['adm']['idm']),'js');
+	if(isset($Pth['adm']['idm'])){
+		$res1['css']=$this->db->query('SELECT * FROM `scripts` WHERE `ids`=^Ni AND `idm`=^Ni AND `type`=^Ns;',intval($Pth['adm']['ids']),intval($Pth['adm']['idm']),'css');
+		$res1['js']=$this->db->query('SELECT * FROM `scripts` WHERE `ids`=^Ni AND `idm`=^Ni AND `type`=^Ns;',intval($Pth['adm']['ids']),intval($Pth['adm']['idm']),'js');
+	}
+	else {
+		$res1['css'] = array();
+		$res1['js'] = array();
+	}
 	if($res){
 		$ret=explode('/',$res->domen);
 		if(count($ret)>1) {

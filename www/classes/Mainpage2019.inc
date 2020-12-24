@@ -1,27 +1,12 @@
-<?php
-//Основной контейнер сайта	
-$order_id='donat';
-$targets='Спонсорская поддержка совершенствования системы grandjetstudio';
-$summ=1000;
+<!-- load Main --><?php
+if(isset($_GET['debug']))echo '<info class="hidno">'.$pathheader.$pathToClasses.'Mainpage2019.inc'.'</info>';
 
-//Maket::divclass('#main_container-'.$disp,$Pth);//<div 	
-if(isset($Maks_Page)){
-	foreach($Maks_Page as $key=>$val){
-			$MP[$key]=$val.'-'.$disp;
-			
-		}
-		if(isset($Pth[$MP[0]][5])){
-			if($Pth[$MP[0]][5] > 0) $prefix=' grid';
-			elseif($Pth[$MP[0]][5]==0 && $disp=='flex')$prefix=' flex';
-		}
-		else $prefix='';
-}
-//print_r($mysites);
+//echo $arrmain['idmen'][0];
+
 //проверка являетесь ли вы администратором сайта
-if ($disp === '') $disp='cont';
+if ($arrmain['idmen'][0] == '') $arrmain['idmen'][0]='cont';
 set_time_limit(10000);
-$ind_scr=substr($disp,0,2);
-$bhrf='./'.$graphp.'?np='.$numpage;//путь к данной странице
+
 //редактирование страниц
 //редактирование данных о пользователе 
 if(isset($_GET['cust'] )&&  isset($_GET['editp']) &&  !isset($_GET['tab']) && !$mode_edit){	
@@ -36,68 +21,76 @@ if(isset($_GET['cust'] )&&  isset($_GET['editp']) &&  !isset($_GET['tab']) && !$
 
 else {	
 //помещаем весь контент в container, который можем от позиционировать по отношению к body
-//print_r($Maks_Page);
 
-if($type_access === 'local')$img=$arrmain['clas']['img'].$arrmain['namep'][0];
-else $img=$arrmain['clas']['img'].$Bannrpic;
-//Хедер сайта 
-//print_r($distype);
-//if ($distype[0]=== 'wr'){
-	
-	//print_r($contmak);
-	if(file_exists($pathheader.$pathToClasses.'pay.inc') && !$mode_edit){
-	$payuser=Singleton::getInstance('Pay');
-	$txt=array('Состояние баланса ','Поддержите дальнейшую разработку системы ','Пополнить свой баланс','Введите промокод');
-	$payuser->payform('adm-'.$arrmain['idmen'][0],$Pth,$currbals,500,$txt);
+if($arrmain['idmen'][0]<>'flex' && isset($Maks_Page[0]))Maket::divclass('main_container_'.$arrmain['idmen'][0],$Pth);//divC
+else Maket::divclass('#main_container',$Pth);//<div id="main_container">
+
+if ($mode_edit && $levelU>3 ) {
+	if (isset($_GET['par'])) $npar =$_GET['par'];
 }
-	if ($distype[4]=== 'hd'){
-		
+
+//Хедер сайта 
+?><!-- load head site --><?php
+if(isset($_GET['debug']))echo '<info class="hidno">'.$pathheader.$pathToClasses.'reg2019_'.$ind_scr.'.inc'.'</info>';
+if(isset($ind_scr)){
 	if (file_exists($pathheader.$pathToClasses.'reg2019_'.$ind_scr.'.inc'))
 	include($pathheader.$pathToClasses.'reg2019_'.$ind_scr.'.inc');
 	elseif(file_exists($pathheader.$pathToClasses.'reg2019.inc'))
 	include($pathheader.$pathToClasses.'reg2019.inc');
-	if($mode_work){
-	$payuser->sponsorpay($Pth,$order_id,$targets,$summ);
-	$payuser->promocodpay($Pth, $summ,$user->getBalans(),$uid);
-}
+
+	//загрузка содержимого корзины интернет магазина
+	if (isset($_GET['new']) || isset($_POST['save'])) include($pathheader.$pathToClasses.'show_cart.inc');
+	//Загрузка основного контента сайта
+	//print_r($distype);
+	if ($distype[1]== 'bl'){	
+		if(isset($_GET['debug']))echo '<info class="hidno">'.$pathheader.$pathToClasses.$arrmain['idmen'][0].'ing.inc'.'</info>';
+		if(file_exists($pathheader.$pathToClasses.$arrmain['idmen'][0].'ing.inc'))include($pathheader.$pathToClasses.$arrmain['idmen'][0].'ing.inc');
+		else '<info class="hidno" Content is absent';
 	}
-	//print_r($arrmain['butt']);
-	//$maxbtn=$arrconf['page']['szbutgrp']*$arrconf['page']['szbuttons'];
-	//echo $arrconf['page']['szbuttons'];
-	//$arfied = array('loz','butt','cont','list','foot','imgt','imgs');
-	//$arnum['butt'] = Maket::rasklad(count($arrmain['butt']),intval(count($arrmain['butt'])/$maxbtn)+1,$arrconf['curpage']['szbuttons']);
-	//print_r($arnum); 
-	//echo $distype[3];
-	$nBut=0;
-	if ($distype[3]=== 'bt'){
-		
-		 $nBut=$arrconf['page']['szbuttons'];
-		if(count($arrmain['butt']) <   $nBut) $nBut = count($arrmain['butt']);
-	//Загрузка основного меню навигации
-		Maket::divclass('container_buttons',$Pth,'',' ' .$disp);
-			Maket::showdisplaybutton($arrmain,$Pth,'button-'.$disp,'butt','div',0,$nBut);
-		Maket::closediv(1);
-		
-	}
-	if ($distype[1]=== 'bl'){
-		//echo 'Content';
-		//Загрузка основного контента сайта
-		if(file_exists($pathheader.$pathToClasses.$disp.'ing.inc'))include($pathheader.$pathToClasses.$disp.'ing.inc');
-		else '<info class="hidno">Content is absent</info>';
-	}
-	else echo '<info class="hidno">Content - nbl</info>';
+	else echo '<info class="hidno"> Content - nbl</info>';
 	//Загрузка футера сайта
+	?><!-- load foot site --><?php
+		if(isset($_GET['debug']))echo '<info class="hidno">'.$pathheader.$pathToClasses.'foot2019_'.$ind_scr.'.inc'.'</info>';
 	if ($distype[5] === 'ft' && !isset($_GET['konstrS'])){
-		if (file_exists($pathheader.$pathToClasses.'foot2019_'.$ind_scr.'.inc'))
-		include($pathheader.$pathToClasses.'foot2019_'.$ind_scr.'.inc');
-		elseif(file_exists($pathheader.$pathToClasses.'foot2019.inc'))
-		include($pathheader.$pathToClasses.'foot2019.inc');	
-		else echo 'footer is absent';
+		
+			if (file_exists($pathheader.$pathToClasses.'foot2019_'.$ind_scr.'.inc'))
+			include($pathheader.$pathToClasses.'foot2019_'.$ind_scr.'.inc');
+			elseif(file_exists($pathheader.$pathToClasses.'foot2019.inc'))
+			include($pathheader.$pathToClasses.'foot2019.inc');	
+			else echo 'footer is absent';
+			}
+	elseif ($distype[3]<>'nft'){
+		
+		if($arrmain['idmen'][0]<>'flex'){
+		$num_foot=3;
+		//if(!$mode_work && isset($_GET['contentS'])) echo 'Блок футера страницы<hr>';//comment
+		Maket::divclass($MP[11].$num_foot,$Pth);
+		
+				$ew->showfooternew($tabl,$arrmain,$Pth,'foot',1,$clas, 10,$num_foot);
+			echo '</div>';
 		}
-	//Maket::closediv(1);//main_container-*/	
+		else {
+			Maket::divclass('container_footers',$Pth);
+			Maket::divclass('footer',$Pth,'',' flex');
+			unset($arr['foot']['link']);
+			foreach($arr['foot'] as $key=>$val) Maket::showlogo('foot',$arrmain,$Pth,5,$key,'foot');
+			Maket::closediv(2);//footers footer #main_container
+		}	
+		}
+	elseif($Maks_Page[11]==$clas['clas'][15] &&  $type_access=='general')  {//неотключаемый программно футер
+			Maket::divclass($Maks_Page[11],$Pth);
+				echo '<div class="'.$clas['clas'][1].'">';
+				echo '<div class="'.$clas['clas'][17].'-'.$clas['clas'][0].'">'.
+				$arrmain['loz'][0].'<div class="footer-copy">~©~</div>';
+			echo '</div></div>';
+		}
+
+			
+	echo '</div>';////divC	
 	//}
-	//else {
-	//	echo 'Режим настройки макета';
-	//}
+	}
+	echo '</div>';
 }
+//if(isset($_GET['debug']))echo '<info class="hidno">'.$pathheader.$pathToClasses.'Jscripts.inc '.$type_access.'</info>';
+//include($pathheader.$pathToClasses.'Jscripts.inc');
 ?>

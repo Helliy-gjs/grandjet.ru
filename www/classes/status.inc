@@ -1,5 +1,24 @@
 <?php
+if(!isset($mass_RA)){
+	$mass_RA=$user->right_access($Site->desc_site);
+//debug($mass_RA);
+	$code_GGLA=$mass_RA['GA'];
+	$code_YAXM=$mass_RA['YM'];
+	if($code_GGLA<>'' && $mass_RA['metr']) $active_GGLA=true;
+	else $active_GGLA=false;
+	if($code_YAXM<>'' && $mass_RA['metr'])$active_YAXM=true;
+	else $active_YAXM=false;
+	$prot=$mass_RA['PR'];
+	if(isset($mass_RA['access']))$type_access = $mass_RA['access'];
+	else $type_access = 'global';
+}	
+//определяем статус пользователя
+$user->check();
+$uid=$user->getuserid();
+$cid=$user->getusercid();
+$currbals = $user->getBalans();
 //echo $currbals;
+//echo $user->getLevel();
 // регулируем права доступа с учето финансового баланса
 if(isset($uid)){
 	if($currbals >= 1000 && $user->getLevel() == 2)$user->addClientRights($uid);
@@ -35,6 +54,7 @@ if(isset($_GET['load'])) {
 	}
 }
 $number_pages=$user->getscountab($Site->pages,'numpage', 'f');
+$number_pub_pages = $user->getscountab('elemap','codeGJS', 'f');
 $number_news=$user->getscountab($Site->news,'idnews', 'c');//news
 $number_nampars=$user->getscountab('namparams','codparams', 'c');//namparams	
 $number_allmakets =  $user->getscountab('allmakets','', 'c');//maket	
@@ -131,16 +151,9 @@ if(!$mode_work){
 }
 
 //$DESCSITES=explode('|',$Site->desc_site);
-$mass_RA=$user->right_access($Site->desc_site);
-$code_GGLA=$mass_RA['GA'];
-$code_YAXM=$mass_RA['YM'];
-if($code_GGLA<>'' && $mass_RA['metr']) $active_GGLA=true;
-else $active_GGLA=false;
-if($code_YAXM<>'' && $mass_RA['metr'])$active_YAXM=true;
-else $active_YAXM=false;
-$prot=$mass_RA['PR'];
-if(isset($mass_RA['access']))$type_access = $mass_RA['access'];
-else $type_access = 'global';
+
+//if($user->getLevelnew() > 5  &&  $type_access === 'general')$type_access = 'global';
+//echo $type_access ;
 //иницилизация массива производителей
 if (!$vend=='') $choice_vendors[]=$vend;
 //Основной банер и логотип страницы
@@ -149,8 +162,9 @@ if(isset($picsglb[0]))$Bannrpic=$picsglb[0];
 else $Bannrpic='';
 if(isset($picsglb[1]))$Logopic=$picsglb[1];
 else $Logopic='';
-if(isset($picsglb[2]))$photo=$picsglb[2];
-else $photo='';
+if(isset($picsglb[2]))$photoProf=$picsglb[2];
+else $photoProf='photo.jpg';
+//echo $photoProf;
 //инормация о владельце сайта для вывода в браузер
 
 $Owner_site=$user->idUserF($Site->uid);
@@ -229,3 +243,4 @@ switch ($tab){
 		}
 }
 if ($Site->element === '') $tb='';
+	//проверка режима ремонта
